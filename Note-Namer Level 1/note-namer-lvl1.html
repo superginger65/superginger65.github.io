@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Note-Namer Level 1</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    img {
+        max-width: 1500px;
+        max-height: 400px;
+        margin-bottom: 20px;
+    }
+    button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button.correct {
+        background-color: green;
+        color: white;
+    }
+    button.incorrect {
+        background-color: red;
+        color: white;
+        animation: shake 0.2s ease-in-out 0s 2;
+        box-shadow: 0 0 0.6rem #ff0000;
+    }
+    @keyframes shake {
+        0% {
+            margin-right: 0rem;
+        }
+        25% {
+            margin-right: -0.2rem;
+            margin-left:   0.2rem;
+        }
+        75% {
+            margin-right: 0.2rem;
+            margin-left: -0.2rem;
+        }
+        100% {
+            margin-right: 0rem;
+        }
+    }
+    
+    
+
+</style>
+</head>
+<body>
+<div>
+    <button id="switchImageButton", title="Fret Image", onclick="switchImages()">Click For Fret Image</button>
+</div>
+<img id="quizImage" src="" alt="Quiz Image">
+<div id="options">
+    <!-- Buttons will be generated dynamically -->
+</div>
+<div>
+    <h3>Questions Answered: <span id="questionCount">0</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Percent Correct: <span id="percentCorrect">0</span>%</h3>
+</div>
+<audio id="audio" controls style="display: none;"></audio>
+<script>
+    const images = [
+        { src: "Assets/Images/staffA1.jpg", fretSrc: "Assets/Images/fretboardA1.jpg", answer: "A", audio: "Assets/Audio/Pitch recognition audio-A1.mp3" },
+        { src: "Assets/Images/staffB1.jpg", fretSrc: "Assets/Images/fretboardB1.jpg", answer: "B", audio: "Assets/Audio/Pitch recognition audio-B1.mp3" },
+        { src: "Assets/Images/staffC2.jpg", fretSrc: "Assets/Images/fretboardC2.jpg", answer: "C", audio: "Assets/Audio/Pitch recognition audio-C2.mp3" },
+        { src: "Assets/Images/staffD1.jpg", fretSrc: "Assets/Images/fretboardD1.jpg", answer: "D", audio: "Assets/Audio/Pitch recognition audio-D1.mp3" },
+        { src: "Assets/Images/staffD2.jpg", fretSrc: "Assets/Images/fretboardD2.jpg", answer: "D", audio: "Assets/Audio/Pitch recognition audio-D2.mp3" },
+        { src: "Assets/Images/staffG1.jpg", fretSrc: "Assets/Images/fretboardG1.jpg", answer: "G", audio: "Assets/Audio/Pitch recognition audio-G1.mp3" },
+        //{ src: "Assets/Images/staff.jpg", fretSrc: "Assets/Images/fretboard", answer: "Answer 7", audio: "audio7.mp3" },
+        //{ src: "Assets/Images/staff.jpg", fretSrc: "Assets/Images/fretboard", answer: "Answer 8", audio: "audio8.mp3" }
+    ];
+
+    let buttonOptions = ["A", "B", "C", "D", "G"];
+
+    let count = 0;
+    let incorrectCount = 0;
+    let correctCount = 0;
+    let questionCount = 0;
+    let imageOrder = shuffleOrder();
+
+    
+    function shuffleOrder() {
+    const numbers = [0, 1, 2, 3, 4, 5];
+    for (let i = numbers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+    }
+    return numbers;
+    }
+
+    function shuffleButtonOptions(array) {
+        for (let i = 4; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    async function switchImages() {
+        const switchButton = document.getElementById("switchImageButton");
+        if (switchButton.textContent === "Click For Fret Image") {
+            document.getElementById("quizImage").src = images[imageOrder[count]].fretSrc;
+            switchButton.textContent = "Click For Staff Image";
+        }
+        else {
+
+            document.getElementById("quizImage").src = images[imageOrder[count]].src;
+            switchButton.textContent = "Click For Fret Image";
+        }
+    }
+    
+
+    function displayQuestion() {
+        if (count >= images.length) {
+            count = 0;
+            imageOrder = shuffleOrder();
+        }
+
+        const currentImage = images[imageOrder[count]];
+        shuffleButtonOptions(buttonOptions);
+
+        document.getElementById("quizImage").src = currentImage.src;
+
+        const optionsContainer = document.getElementById("options");
+        optionsContainer.innerHTML = "";
+        buttonOptions.forEach(option => {
+            let button = document.createElement("button");
+            button.textContent = option;
+            button.onclick = () => checkAnswer(button, option === currentImage.answer);
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    async function checkAnswer(button, isCorrect) {
+        //const buttons = document.querySelectorAll("#options button");
+            if (isCorrect) {
+                button.classList.add("correct");
+                const audio = new Audio(images[imageOrder[count]].audio);
+                audio.play();
+                count++;
+                if (incorrectCount === 0) {
+                    document.getElementById("percentCorrect").textContent = 100;
+                }
+                else {
+                    document.getElementById("percentCorrect").textContent = Math.floor(++correctCount / ++incorrectCount * 100);
+                }
+                document.getElementById("questionCount").textContent = ++questionCount;
+                await new Promise(r => setTimeout(r, 750));
+                displayQuestion();
+            }
+            else {
+                incorrectCount++;
+                button.classList.add("incorrect");
+                document.getElementById("percentCorrect").textContent = Math.floor(++correctCount / ++incorrectCount * 100);
+            }
+            button.disabled = true;
+    }
+
+    displayQuestion();
+</script>
+</body>
+</html>
