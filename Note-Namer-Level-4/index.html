@@ -200,25 +200,22 @@
 
     async function checkAnswer(button, isCorrect) {
         //const buttons = document.querySelectorAll("#options button");
-            if (isCorrect) {
+        if (isCorrect) {
                 button.classList.add("correct");
                 const audio = new Audio(images[imageOrder[count]].audio);
                 audio.play();
                 count++;
-                if (incorrectCount === 0) {
-                    document.getElementById("percentCorrect").textContent = 100;
-                }
-                else {
-                    document.getElementById("percentCorrect").textContent = Math.floor(++correctCount / ++incorrectCount * 100);
-                }
-                document.getElementById("questionCount").textContent = ++questionCount;
+                correctCount++;
+                questionCount++;
+                document.getElementById("percentCorrect").textContent = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+                document.getElementById("questionCount").textContent = questionCount;
                 await new Promise(r => setTimeout(r, 750));
                 displayQuestion();
             }
             else {
                 incorrectCount++;
                 button.classList.add("incorrect");
-                document.getElementById("percentCorrect").textContent = Math.floor(++correctCount / ++incorrectCount * 100);
+                document.getElementById("percentCorrect").textContent = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
             }
             button.disabled = true;
     }
