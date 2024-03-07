@@ -144,8 +144,13 @@
 
         const currentImage = images[imageOrder[count]];
         const buttons = getButtonOptions(currentImage.answer);
-
-        document.getElementById("quizImage").src = currentImage.src;
+        
+        if (switchImageButton.textContent === "Click For Fret Image") {
+            document.getElementById("quizImage").src = currentImage.src;
+        }
+        else {
+            document.getElementById("quizImage").src = currentImage.fretSrc;
+        }
 
         const optionsContainer = document.getElementById("options");
         optionsContainer.innerHTML = "";
