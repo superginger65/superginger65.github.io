@@ -118,16 +118,35 @@
     }
 
     function getButtonOptions(answer) {
-        const tempArray = [...buttonOptions];
-        shuffle(tempArray);
-        tempArray.pop();
-        tempArray.pop();
-        if (!tempArray.includes(answer)) {
+        if (answer.includes("-")) {
+            const tempArray = shuffle([...buttonOptions]).filter(option => option.includes("-"));
             tempArray.pop();
-            tempArray.push(answer);
+            tempArray.pop();
+            tempArray.pop();
+            tempArray.pop();
+            tempArray.pop();
+            tempArray.pop();
+            tempArray.pop();
+
+            if (!tempArray.includes(answer)) {
+                tempArray.pop();
+                tempArray.push(answer);
+                shuffle(tempArray);
+            }
+            return tempArray;
         }
-        shuffle(tempArray);
-        return tempArray;
+        else {
+            const tempArray = shuffle([...buttonOptions]).filter(option => option.length === 1);
+            tempArray.pop();
+            tempArray.pop();
+            if (!tempArray.includes(answer)) {
+                tempArray.pop();
+                tempArray.push(answer);
+            }
+            shuffle(tempArray);
+            return tempArray;
+        }
+
     }
 
     function shuffle(array) {
