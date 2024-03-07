@@ -102,11 +102,25 @@
     return numbers;
     }
 
-    function shuffleButtonOptions(array) {
-        for (let i = buttonOptions.length - 1; i > 0; i--) {
+    function getButtonOptions(answer) {
+        const tempArray = [...buttonOptions];
+        shuffle(tempArray);
+        tempArray.pop();
+        tempArray.pop();
+        if (!tempArray.includes(answer)) {
+            tempArray.pop();
+            tempArray.push(answer);
+        }
+        shuffle(tempArray);
+        return tempArray;
+    }
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
+        return array;
     }
 
     async function switchImages() {
@@ -128,15 +142,15 @@
             count = 0;
             imageOrder = shuffleOrder();
         }
-
+        
         const currentImage = images[imageOrder[count]];
-        shuffleButtonOptions(buttonOptions);
+        const buttons = getButtonOptions(currentImage.answer);
 
         document.getElementById("quizImage").src = currentImage.src;
 
         const optionsContainer = document.getElementById("options");
         optionsContainer.innerHTML = "";
-        buttonOptions.forEach(option => {
+        buttons.forEach(option => {
             let button = document.createElement("button");
             button.textContent = option;
             button.onclick = () => checkAnswer(button, option === currentImage.answer);
