@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Note-Namer Level 1</title>
+<meta name="viewport" content="width=fit-content, initial-scale=1.0">
+<title>Note-Namer Level 2</title>
 <style>
     body {
+        margin: auto;
         font-family: Arial, sans-serif;
         text-align: center;
     }
     img {
-        max-width: 1500px;
-        max-height: 400px;
-        margin-bottom: 20px;
+        max-width: 87%;
+        max-height: 65%;
+    }
+    img.fret {
+        max-width: 33.4%;
+        max-height: 100%;
     }
     button {
         padding: 10px 20px;
@@ -73,17 +77,15 @@
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
-        { src: "Assets/Images/staffA-B.jpg", fretSrc: "Assets/Images/fretboardA-B.jpg", answer: "A", audio: "Assets/Audio/Pitch recognition audio-A-B.mp3" },
-        { src: "Assets/Images/staffA-C.jpg", fretSrc: "Assets/Images/fretboardA-C.jpg", answer: "B", audio: "Assets/Audio/Pitch recognition audio-A-C.mp3" },
-        { src: "Assets/Images/staffA-D.jpg", fretSrc: "Assets/Images/fretboardA-D.jpg", answer: "C", audio: "Assets/Audio/Pitch recognition audio-A-D.mp3" },
-        { src: "Assets/Images/staffG-B.jpg", fretSrc: "Assets/Images/fretboardG-B.jpg", answer: "D", audio: "Assets/Audio/Pitch recognition audio-G-B.mp3" },
-        { src: "Assets/Images/staffG-C.jpg", fretSrc: "Assets/Images/fretboardG-C.jpg", answer: "D", audio: "Assets/Audio/Pitch recognition audio-G-C.mp3" },
-        { src: "Assets/Images/staffG-D.jpg", fretSrc: "Assets/Images/fretboardG-D.jpg", answer: "G", audio: "Assets/Audio/Pitch recognition audio-G-D.mp3" },
-        //{ src: "Assets/Images/staff.jpg", fretSrc: "Assets/Images/fretboard", answer: "Answer 7", audio: "audio7.mp3" },
-        //{ src: "Assets/Images/staff.jpg", fretSrc: "Assets/Images/fretboard", answer: "Answer 8", audio: "audio8.mp3" }
+        { src: "Assets/Images/staffA-B.jpg", fretSrc: "Assets/Images/fretboardA-B.jpg", answer: "A-B", audio: "Assets/Audio/Pitch recognition audio-A-B.mp3" },
+        { src: "Assets/Images/staffA-C.jpg", fretSrc: "Assets/Images/fretboardA-C.jpg", answer: "A-C", audio: "Assets/Audio/Pitch recognition audio-A-C.mp3" },
+        { src: "Assets/Images/staffA-D.jpg", fretSrc: "Assets/Images/fretboardA-D.jpg", answer: "A-D", audio: "Assets/Audio/Pitch recognition audio-A-D.mp3" },
+        { src: "Assets/Images/staffG-B.jpg", fretSrc: "Assets/Images/fretboardG-B.jpg", answer: "G-B", audio: "Assets/Audio/Pitch recognition audio-G-B.mp3" },
+        { src: "Assets/Images/staffG-C.jpg", fretSrc: "Assets/Images/fretboardG-C.jpg", answer: "G-C", audio: "Assets/Audio/Pitch recognition audio-G-C.mp3" },
+        { src: "Assets/Images/staffG-D.jpg", fretSrc: "Assets/Images/fretboardG-D.jpg", answer: "G-D", audio: "Assets/Audio/Pitch recognition audio-G-D.mp3" },
     ];
 
-    let buttonOptions = ["A-B", "A-C", "A-D", "G-B", "G-C", "G-D"];
+    let buttonOptions = ["G-B", "G-C", "G-D", "|", "A-B", "A-C", "A-D"];
 
     let count = 0;
     let incorrectCount = 0;
@@ -111,11 +113,12 @@
     async function switchImages() {
         const switchButton = document.getElementById("switchImageButton");
         if (switchButton.textContent === "Click For Fret Image") {
+            document.getElementById("quizImage").classList.add("fret");
             document.getElementById("quizImage").src = images[imageOrder[count]].fretSrc;
             switchButton.textContent = "Click For Staff Image";
         }
         else {
-
+            document.getElementById("quizImage").classList.remove("fret");
             document.getElementById("quizImage").src = images[imageOrder[count]].src;
             switchButton.textContent = "Click For Fret Image";
         }
@@ -129,41 +132,49 @@
         }
 
         const currentImage = images[imageOrder[count]];
-        shuffleButtonOptions(buttonOptions);
+        //shuffleButtonOptions(buttonOptions);
 
-        document.getElementById("quizImage").src = currentImage.src;
+        if (switchImageButton.textContent === "Click For Fret Image") {
+            document.getElementById("quizImage").src = currentImage.src;
+        }
+        else {
+            document.getElementById("quizImage").src = currentImage.fretSrc;
+        }
 
         const optionsContainer = document.getElementById("options");
         optionsContainer.innerHTML = "";
         buttonOptions.forEach(option => {
-            let button = document.createElement("button");
-            button.textContent = option;
-            button.onclick = () => checkAnswer(button, option === currentImage.answer);
-            optionsContainer.appendChild(button);
+            if (option === "|") {
+                let br = document.createElement("br");
+                optionsContainer.appendChild(br);
+            }
+            else {
+                let button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(button, option === currentImage.answer);
+                optionsContainer.appendChild(button);
+            }
         });
     }
 
     async function checkAnswer(button, isCorrect) {
         //const buttons = document.querySelectorAll("#options button");
-            if (isCorrect) {
+        if (isCorrect) {
                 button.classList.add("correct");
                 const audio = new Audio(images[imageOrder[count]].audio);
                 audio.play();
                 count++;
-                if (incorrectCount === 0) {
-                    document.getElementById("percentCorrect").textContent = 100;
-                }
-                else {
-                    document.getElementById("percentCorrect").textContent = Math.floor(++correctCount / ++incorrectCount * 100);
-                }
-                document.getElementById("questionCount").textContent = ++questionCount;
+                correctCount++;
+                questionCount++;
+                document.getElementById("percentCorrect").textContent = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+                document.getElementById("questionCount").textContent = questionCount;
                 await new Promise(r => setTimeout(r, 750));
                 displayQuestion();
             }
             else {
                 incorrectCount++;
                 button.classList.add("incorrect");
-                document.getElementById("percentCorrect").textContent = Math.floor(++correctCount / ++incorrectCount * 100);
+                document.getElementById("percentCorrect").textContent = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
             }
             button.disabled = true;
     }
