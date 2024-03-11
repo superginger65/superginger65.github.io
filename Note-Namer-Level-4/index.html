@@ -230,6 +230,13 @@
 
         const optionsContainer = document.getElementById("options");
         optionsContainer.innerHTML = "";
+        let buttonOptions = null;
+        if (currentImage.answer.includes("-")) {
+            buttonOptions = buttonOptionsDiad;
+        }
+        else {
+            buttonOptions = buttonOptionsSingle;
+        }
         buttonOptions.forEach(option => {
             if (option === "|") {
                 let br = document.createElement("br");
