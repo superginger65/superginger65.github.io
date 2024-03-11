@@ -85,24 +85,13 @@
 </head>
 <body>
 <div>
-    <button id="switchImageButton", title="Fret Image", onclick="switchImages()">Fret Image</button>
-    <div class="dropdown">
-        <button id="hintButton", title="Hint">Hint</button>
-        <div class="dropdown-content">
-            <img id="hintImage" src="" alt="Hint Image">
-        </div>
-    </div>
+    <button id="switchImageButton", title="Fretboard", onclick="switchImages()">Fretboard</button>
 </div>
 <img id="quizImage" src="" alt="Quiz Image">
 <div id="options">
     <!-- Buttons will be generated dynamically -->
 </div>
-<div class="dropdown score">
-    <button id="scoreButton", title="Score">View Score</button>
-    <div class="dropdown-content">
-        <h3>Percent Correct: <span id="percentCorrect">0</span>%</h3>
-    </div>
-</div>
+<button id="scoreButton", title="Score", onmouseenter="scoreHover(true)", onmouseleave="scoreHover(false)">View Score</button>
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
@@ -123,6 +112,7 @@
     let incorrectCount = 0;
     let correctCount = 0;
     let questionCount = 0;
+    let score = 0;
     let imageOrder = shuffleOrder();
 
     
@@ -155,22 +145,27 @@
         }
         return array;
     }
+    
+    function scoreHover(isHovered) {
+        if (isHovered) {
+            document.getElementById("scoreButton").textContent = `${score}%     `;
+        }
+        else {
+            document.getElementById("scoreButton").textContent = "View Score";
+        }
+    }
 
     async function switchImages() {
         const switchButton = document.getElementById("switchImageButton");
-        if (switchButton.textContent === "Fret Image") {
+        if (switchButton.textContent === "Fretboard") {
             document.getElementById("quizImage").classList.add("fret");
             document.getElementById("quizImage").src = images[imageOrder[count]].fretSrc;
-            switchButton.textContent = "Staff Image";
-            document.getElementById("hintImage").classList.remove("fret");
-            document.getElementById("hintImage").src = images[imageOrder[count]].src;
+            switchButton.textContent = "Staff";
         }
         else {
             document.getElementById("quizImage").classList.remove("fret");
             document.getElementById("quizImage").src = images[imageOrder[count]].src;
-            switchButton.textContent = "Fret Image";
-            document.getElementById("hintImage").classList.add("fret");
-            document.getElementById("hintImage").src = images[imageOrder[count]].fretSrc;
+            switchButton.textContent = "Fretboard";
         }
     }
     
@@ -184,17 +179,13 @@
         const currentImage = images[imageOrder[count]];
         //shuffleButtonOptions(buttonOptions);
 
-        if (switchImageButton.textContent === "Fret Image") {
+        if (switchImageButton.textContent === "Fretboard") {
             document.getElementById("quizImage").classList.remove("fret");
             document.getElementById("quizImage").src = currentImage.src;
-            document.getElementById("hintImage").classList.add("fret");
-            document.getElementById("hintImage").src = currentImage.fretSrc;
         }
         else {
             document.getElementById("quizImage").classList.add("fret");
             document.getElementById("quizImage").src = currentImage.fretSrc;
-            document.getElementById("hintImage").classList.remove("fret");
-            document.getElementById("hintImage").src = currentImage.src;
         }
 
         const optionsContainer = document.getElementById("options");
@@ -222,14 +213,14 @@
                 count++;
                 correctCount++;
                 questionCount++;
-                document.getElementById("percentCorrect").textContent = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+                score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
                 await new Promise(r => setTimeout(r, 750));
                 displayQuestion();
             }
             else {
                 incorrectCount++;
                 button.classList.add("incorrect");
-                document.getElementById("percentCorrect").textContent = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+                score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
             }
             button.disabled = true;
     }
