@@ -11,8 +11,12 @@
         text-align: center;
     }
     img {
-        max-width: 1000px;
-        max-height: 340px;
+        max-width: 87%;
+        max-height: 65%;
+    }
+    img.fret {
+        max-width: 33.4%;
+        max-height: 100%;
     }
     button {
         padding: 10px 20px;
@@ -73,6 +77,12 @@
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
+        { src: "assets/images/staffA1.jpg", fretSrc: "assets/images/fretboardA1.jpg", answer: "A", audio: "assets/audio/Pitch recognition audio-A1.mp3" },
+        { src: "assets/images/staffB1.jpg", fretSrc: "assets/images/fretboardB1.jpg", answer: "B", audio: "assets/audio/Pitch recognition audio-B1.mp3" },
+        { src: "assets/images/staffC2.jpg", fretSrc: "assets/images/fretboardC2.jpg", answer: "C", audio: "assets/audio/Pitch recognition audio-C2.mp3" },
+        { src: "assets/images/staffG-B.jpg", fretSrc: "assets/images/fretboardG-B.jpg", answer: "D", audio: "assets/audio/Pitch recognition audio-G-B.mp3" },
+        { src: "assets/images/staffG-C.jpg", fretSrc: "assets/images/fretboardG-C.jpg", answer: "D", audio: "assets/audio/Pitch recognition audio-G-C.mp3" },
+        { src: "assets/images/staffG-D.jpg", fretSrc: "assets/images/fretboardG-D.jpg", answer: "G", audio: "assets/audio/Pitch recognition audio-G-D.mp3" },
         { src: "assets/images/staffA-B.jpg", fretSrc: "assets/images/fretboardA-B.jpg", answer: "A", audio: "assets/audio/Pitch recognition audio-A-B.mp3" },
         { src: "assets/images/staffA-C.jpg", fretSrc: "assets/images/fretboardA-C.jpg", answer: "B", audio: "assets/audio/Pitch recognition audio-A-C.mp3" },
         { src: "assets/images/staffA-D.jpg", fretSrc: "assets/images/fretboardA-D.jpg", answer: "C", audio: "assets/audio/Pitch recognition audio-A-D.mp3" },
