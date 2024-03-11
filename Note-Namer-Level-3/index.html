@@ -37,6 +37,26 @@
         color: white;
         animation: shake 0.2s ease-in-out 0s 2;
         box-shadow: 0 0 0.6rem #ff0000;
+    }.dropdown {
+        position: relative;
+        display: inline-block;
+        margin-left: 100px;
+    }
+    .dropdown.score {
+        margin-left: 0px;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 350px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
     }
     @keyframes shake {
         0% {
@@ -61,14 +81,23 @@
 </head>
 <body>
 <div>
-    <button id="switchImageButton", title="Fret Image", onclick="switchImages()">Click For Fret Image</button>
+    <button id="switchImageButton", title="Fret Image", onclick="switchImages()">Fret Image</button>
+    <div class="dropdown">
+        <button id="hintButton", title="Hint">Hint</button>
+        <div class="dropdown-content">
+            <img id="hintImage" src="" alt="Hint Image">
+        </div>
+    </div>
 </div>
 <img id="quizImage" src="" alt="Quiz Image">
 <div id="options">
     <!-- Buttons will be generated dynamically -->
 </div>
-<div>
-    <h3>Questions Answered: <span id="questionCount">0</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Percent Correct: <span id="percentCorrect">0</span>%</h3>
+<div class="dropdown score">
+    <button id="scoreButton", title="Score">View Score</button>
+    <div class="dropdown-content">
+        <h3>Percent Correct: <span id="percentCorrect">0</span>%</h3>
+    </div>
 </div>
 <audio id="audio" controls style="display: none;"></audio>
 <script>
@@ -125,14 +154,19 @@
 
     async function switchImages() {
         const switchButton = document.getElementById("switchImageButton");
-        if (switchButton.textContent === "Click For Fret Image") {
+        if (switchButton.textContent === "Fret Image") {
+            document.getElementById("quizImage").classList.add("fret");
             document.getElementById("quizImage").src = images[imageOrder[count]].fretSrc;
-            switchButton.textContent = "Click For Staff Image";
+            switchButton.textContent = "Staff Image";
+            document.getElementById("hintImage").classList.remove("fret");
+            document.getElementById("hintImage").src = images[imageOrder[count]].src;
         }
         else {
-
+            document.getElementById("quizImage").classList.remove("fret");
             document.getElementById("quizImage").src = images[imageOrder[count]].src;
-            switchButton.textContent = "Click For Fret Image";
+            switchButton.textContent = "Fret Image";
+            document.getElementById("hintImage").classList.add("fret");
+            document.getElementById("hintImage").src = images[imageOrder[count]].fretSrc;
         }
     }
     
@@ -142,24 +176,36 @@
             count = 0;
             imageOrder = shuffleOrder();
         }
-        
-        const currentImage = images[imageOrder[count]];
-        //const buttons = getButtonOptions(currentImage.answer);
 
-        if (switchImageButton.textContent === "Click For Fret Image") {
+        const currentImage = images[imageOrder[count]];
+        //shuffleButtonOptions(buttonOptions);
+
+        if (switchImageButton.textContent === "Fret Image") {
+            document.getElementById("quizImage").classList.remove("fret");
             document.getElementById("quizImage").src = currentImage.src;
+            document.getElementById("hintImage").classList.add("fret");
+            document.getElementById("hintImage").src = currentImage.fretSrc;
         }
         else {
+            document.getElementById("quizImage").classList.add("fret");
             document.getElementById("quizImage").src = currentImage.fretSrc;
+            document.getElementById("hintImage").classList.remove("fret");
+            document.getElementById("hintImage").src = currentImage.src;
         }
 
         const optionsContainer = document.getElementById("options");
         optionsContainer.innerHTML = "";
         buttonOptions.forEach(option => {
-            let button = document.createElement("button");
-            button.textContent = option;
-            button.onclick = () => checkAnswer(button, option === currentImage.answer);
-            optionsContainer.appendChild(button);
+            if (option === "|") {
+                let br = document.createElement("br");
+                optionsContainer.appendChild(br);
+            }
+            else {
+                let button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(button, option === currentImage.answer);
+                optionsContainer.appendChild(button);
+            }
         });
     }
 
@@ -173,7 +219,6 @@
                 correctCount++;
                 questionCount++;
                 document.getElementById("percentCorrect").textContent = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
-                document.getElementById("questionCount").textContent = questionCount;
                 await new Promise(r => setTimeout(r, 750));
                 displayQuestion();
             }
