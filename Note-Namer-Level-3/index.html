@@ -85,7 +85,7 @@
 </head>
 <body>
 <div>
-    <button id="switchImageButton", title="Fretboard", onclick="switchImages()">Fretboard</button>
+    <button id="switchImageButton", title="Fretboard", onclick="switchimages()">Fretboard</button>
 </div>
 <img id="quizImage" src="" alt="Quiz Image">
 <div id="options">
@@ -155,7 +155,7 @@
         }
     }
 
-    async function switchImages() {
+    async function switchimages() {
         const switchButton = document.getElementById("switchImageButton");
         if (switchButton.textContent === "Fretboard") {
             document.getElementById("quizImage").classList.add("fret");
