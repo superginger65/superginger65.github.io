@@ -253,21 +253,16 @@
                 button.classList.add("correct");
                 enableAccidentals(true);
             }
-            else{    
+            else {    
                 button.disabled = true;
                 if (button.textContent === currentImage.answer.charAt(voicing)) {
-                    if (button.textContent === currentImage.answer.charAt(voicing)) {
-                        button.classList.add("correct");
-                        // await new Promise(r => setTimeout(r, 370));
-                        // button.classList.remove("correct");
-                        button.disabled = true;
-                        voicing += voicing + 2;
-                        if (voicing > currentImage.answer.length - 1) {
-                            checkAnswer(button, true, currentImage);
-                        }
-                    }
-                    else {
-                        incorrectAnswer(button);
+                    button.classList.add("correct");
+                    // await new Promise(r => setTimeout(r, 370));
+                    // button.classList.remove("correct");
+                    button.disabled = true;
+                    voicing += 2;
+                    if (voicing > currentImage.answer.length - 1) {
+                        checkAnswer(button, true, currentImage);
                     }
                 }
                 else {
@@ -276,6 +271,7 @@
             }
         }
     }
+    
 
     async function checkAnswerAccidental(button, currentImage) {
         if (button.textContent === currentImage.answer.charAt(voicing+1))  {
