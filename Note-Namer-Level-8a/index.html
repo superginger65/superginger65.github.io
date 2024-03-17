@@ -127,7 +127,6 @@
     ];
 
     let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
-    let buttonModifiers = ["#", "♭"]
 
     let count = 0;
     let incorrectCount = 0;
@@ -224,15 +223,6 @@
                 optionsContainer.appendChild(button);
             }
         });
-        optionsContainer.appendChild(document.createElement("br"))
-        buttonModifiers.forEach(option => {
-            let button = document.createElement("button");
-            button.textContent = option;
-            button.classList.add("accidental");
-            button.disabled = true;
-            button.onclick = () => checkAnswerAccidental(button, currentImage);
-            optionsContainer.appendChild(button);
-        })
     }
 
     async function checkAnswer(button, isCorrect, currentImage) {
