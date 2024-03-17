@@ -21,7 +21,7 @@
     button {
         padding: 1% 2%;
         margin: 1%;
-        font-size: 150%;
+        font-size: 120%;
         cursor: pointer;
         border: none;
         border-radius: 45%;
@@ -49,8 +49,8 @@
         box-shadow: 0 0 0.6rem #ff0000;
     }
     button.accidental {
-        margin-left: 1.8rem;
-        margin-right: 1.8rem;
+        margin-left: 1.8%;
+        margin-right: 1.8%;
     }
     .dropdown {
         position: relative;
@@ -75,18 +75,18 @@
     }
     @keyframes shake {
         0% {
-            margin-right: 0rem;
+            margin-right: 0%;
         }
         25% {
-            margin-right: -0.1rem;
-            margin-left:   0.1rem;
+            margin-right: -0.1%;
+            margin-left:   0.1%;
         }
         75% {
-            margin-right: 0.1rem;
-            margin-left: -0.1rem;
+            margin-right: 0.1%;
+            margin-left: -0.1%;
         }
         100% {
-            margin-right: 0rem;
+            margin-right: 0%;
         }
     }
     
@@ -248,9 +248,10 @@
                 button.disabled = true;
                 if (button.textContent === currentImage.answer.charAt(voicing)) {
                     button.classList.add("correct");
-                    // await new Promise(r => setTimeout(r, 370));
-                    // button.classList.remove("correct");
                     button.disabled = true;
+                    await new Promise(r => setTimeout(r, 450));
+                    button.classList.remove("correct");
+                    button.disabled = false;
                     voicing += 2;
                     if (voicing > currentImage.answer.length - 1) {
                         checkAnswer(button, true, currentImage);
@@ -268,7 +269,7 @@
         if (button.textContent === currentImage.answer.charAt(voicing+1))  {
             button.classList.add("correct");
             button.disabled = true;
-            await new Promise(r => setTimeout(r, 370));
+            await new Promise(r => setTimeout(r, 450));
             button.classList.remove("correct");
             button.disabled = false;
             voicing += voicing + 3;
