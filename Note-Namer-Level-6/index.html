@@ -78,12 +78,12 @@
             margin-right: 0rem;
         }
         25% {
-            margin-right: -0.2rem;
-            margin-left:   0.2rem;
+            margin-right: -0.1rem;
+            margin-left:   0.1rem;
         }
         75% {
-            margin-right: 0.2rem;
-            margin-left: -0.2rem;
+            margin-right: 0.1rem;
+            margin-left: -0.1rem;
         }
         100% {
             margin-right: 0rem;
@@ -122,16 +122,17 @@
         { src: "assets/images/staffD-G.jpg", fretSrc: "assets/images/fretboardD-G.jpg", answer: "D-G", audio: "assets/audio/Pitch recognition audio-D-G.mp3" },
         { src: "assets/images/staffG-B.jpg", fretSrc: "assets/images/fretboardG-B.jpg", answer: "G-B", audio: "assets/audio/Pitch recognition audio-G-B.mp3" },
         { src: "assets/images/staffG-C.jpg", fretSrc: "assets/images/fretboardG-C.jpg", answer: "G-C", audio: "assets/audio/Pitch recognition audio-G-C.mp3" },
-        { src: "assets/images/staffG-D.jpg", fretSrc: "assets/images/fretboardG-D.jpg", answer: "G-D", audio: "assets/audio/Pitch recognition audio-G-D.mp3" },
+        { src: "assets/images/staffG-D.jpg", fretSrc: "assets/images/fretboardG-D.jpg", answer: "G-D", audio: "assets/audio/Pitch recognition audio-G-D.mp3" }, 
     ];
 
-    let buttonOptions = ["A-B", "A-C", "A-D", "B-E", "B-F", "B-G", "B♭-C", "B♭-D", "|", "C-E", "C-F", "C-G", "D-E", "D-F", "D-G", "G-B", "G-C", "G-D"];
+    let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
     let buttonModifiers = ["#", "♭"]
 
     let count = 0;
     let incorrectCount = 0;
     let correctCount = 0;
     let questionCount = 0;
+    let voicing = 0;
     let score = 0;
     let imageOrder = shuffleOrder();
 
@@ -191,6 +192,7 @@
     
 
     function displayQuestion() {
+        voicing = 0;
         if (count >= images.length) {
             count = 0;
             imageOrder = shuffleOrder();
@@ -217,7 +219,7 @@
             else {
                 let button = document.createElement("button");
                 button.textContent = option;
-                button.onclick = () => checkAnswer(button, option === currentImage.answer, currentImage, optionsContainer);
+                button.onclick = () => checkAnswer(button, option === currentImage.answer, currentImage);
                 optionsContainer.appendChild(button);
             }
         });
@@ -227,47 +229,98 @@
             button.textContent = option;
             button.classList.add("accidental");
             button.disabled = true;
-            button.onclick = () => checkAnswerAccidental(button, currentImage, optionsContainer);
+            button.onclick = () => checkAnswerAccidental(button, currentImage);
             optionsContainer.appendChild(button);
         })
     }
 
-    async function checkAnswer(button, isCorrect, currentImage, optionsContainer) {
+    async function checkAnswer(button, isCorrect, currentImage) {
         //const buttons = document.querySelectorAll("#options button");
         if (isCorrect) {
             button.classList.add("correct");
+            voicing = 0;
             const audio = new Audio(images[imageOrder[count]].audio);
             audio.play();
             count++;
             correctCount++;
             questionCount++;
             score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
-            await new Promise(r => setTimeout(r, 750));
+            await new Promise(r => setTimeout(r, 1000));
             displayQuestion();
         }
         else {
-            if ((currentImage.answer.includes("#") || currentImage.answer.includes("♭")) && button.textContent.includes(currentImage.answer.charAt(0))){
+            if ((currentImage.answer.charAt(voicing+1).includes("#") || currentImage.answer.charAt(voicing+1).includes("♭")) && button.textContent.includes(currentImage.answer.charAt(voicing))){
                 button.classList.add("correct");
-                optionsContainer.querySelectorAll("button").forEach(button => button.disabled = false);
+                enableAccidentals(true);
             }
-            else{
-                incorrectCount++;
-                button.classList.add("incorrect");
-                score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+            else{    
+                button.disabled = true;
+                if (button.textContent === currentImage.answer.charAt(voicing)) {
+                    if (button.textContent === currentImage.answer.charAt(voicing)) {
+                        button.classList.add("correct");
+                        // await new Promise(r => setTimeout(r, 370));
+                        // button.classList.remove("correct");
+                        button.disabled = true;
+                        voicing += voicing + 2;
+                        if (voicing > currentImage.answer.length - 1) {
+                            checkAnswer(button, true, currentImage);
+                        }
+                    }
+                    else {
+                        incorrectAnswer(button);
+                    }
+                }
+                else {
+                    incorrectAnswer(button);
+                }
             }
         }
-        button.disabled = true;
     }
 
-    async function checkAnswerAccidental(button, currentImage, optionsContainer) {
-        let notes = optionsContainer.querySelector("button.correct").textContent;
-        if (note + button.textContent === currentImage.answer)  {
-            checkAnswer(button, true, currentImage, optionsContainer);
+    async function checkAnswerAccidental(button, currentImage) {
+        if (button.textContent === currentImage.answer.charAt(voicing+1))  {
+            button.classList.add("correct");
+            button.disabled = true;
+            await new Promise(r => setTimeout(r, 370));
+            button.classList.remove("correct");
+            button.disabled = false;
+            voicing += voicing + 3;
+            if (voicing > currentImage.answer.length - 1) {
+                checkAnswer(button, true, currentImage);
+            }
+            else {
+                enableAccidentals(false);
+            }
         }
         else {
-            incorrectCount++;
-            button.classList.add("incorrect");
-            score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+            incorrectAnswer(button);
+        }
+    }
+
+    async function incorrectAnswer(button) {
+        score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+        button.classList.add("incorrect");
+        button.disabled = true;
+        await new Promise(r => setTimeout(r, 450));
+        button.classList.remove("incorrect");
+        button.disabled = false;
+    }
+
+    async function enableAccidentals(isEnabled) {
+        const buttons = document.querySelectorAll("#options button");
+        if (isEnabled) {
+            buttons.forEach(button => {
+                if (button.textContent === "#" || button.textContent === "♭") {
+                    button.disabled = false;
+                }
+            });
+        }
+        else {
+            buttons.forEach(button => {
+                if (button.textContent === "#" || button.textContent === "♭") {
+                    button.disabled = true;
+                }
+            });
         }
     }
 
