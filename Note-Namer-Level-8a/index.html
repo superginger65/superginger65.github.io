@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=fit-content, initial-scale=1.0">
-<title>Note-Namer Level 2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Note-Namer Level 1</title>
 <style>
     body {
         margin: auto;
@@ -32,6 +32,12 @@
     button:hover {
         background-color: #ff6a00;
     }
+    button:disabled,
+    button[disabled]{
+    border: none;
+    background-color: #cccccc;
+    color: #666666;
+    }
     button.correct {
         background-color: green;
         color: white;
@@ -41,6 +47,10 @@
         color: white;
         animation: shake 0.2s ease-in-out 0s 2;
         box-shadow: 0 0 0.6rem #ff0000;
+    }
+    button.accidental {
+        margin-left: 1.8rem;
+        margin-right: 1.8rem;
     }
     .dropdown {
         position: relative;
@@ -68,12 +78,12 @@
             margin-right: 0rem;
         }
         25% {
-            margin-right: -0.2rem;
-            margin-left:   0.2rem;
+            margin-right: -0.1rem;
+            margin-left:   0.1rem;
         }
         75% {
-            margin-right: 0.2rem;
-            margin-left: -0.2rem;
+            margin-right: 0.1rem;
+            margin-left: -0.1rem;
         }
         100% {
             margin-right: 0rem;
@@ -96,32 +106,34 @@
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
-        { src: "assets/images/staffD-A-B.jpg", fretSrc: "assets/images/fretboardD-A-B.jpg", answer: "D-A-B", audio: "assets/Audio/Pitch recognition audio-D-A-B.mp3" },
-        { src: "assets/images/staffD-A-C.jpg", fretSrc: "assets/images/fretboardD-A-C.jpg", answer: "D-A-C", audio: "assets/Audio/Pitch recognition audio-D-A-C.mp3" },
-        { src: "assets/images/staffD-A-D.jpg", fretSrc: "assets/images/fretboardD-A-D.jpg", answer: "D-A-D", audio: "assets/Audio/Pitch recognition audio-D-A-D.mp3" },
-        { src: "assets/images/staffD-G-B.jpg", fretSrc: "assets/images/fretboardD-G-B.jpg", answer: "D-G-B", audio: "assets/Audio/Pitch recognition audio-D-G-B.mp3" },
-        { src: "assets/images/staffD-G-C.jpg", fretSrc: "assets/images/fretboardD-G-C.jpg", answer: "D-G-C", audio: "assets/Audio/Pitch recognition audio-D-G-C.mp3" },
-        { src: "assets/images/staffD-G-D.jpg", fretSrc: "assets/images/fretboardD-G-D.jpg", answer: "D-G-D", audio: "assets/Audio/Pitch recognition audio-D-G-D.mp3" },
-        { src: "assets/images/staffE-A-B.jpg", fretSrc: "assets/images/fretboardE-A-B.jpg", answer: "E-A-B", audio: "assets/Audio/Pitch recognition audio-E-A-B.mp3" },
-        { src: "assets/images/staffE-A-C.jpg", fretSrc: "assets/images/fretboardE-A-C.jpg", answer: "E-A-C", audio: "assets/Audio/Pitch recognition audio-E-A-C.mp3" },
-        { src: "assets/images/staffE-A-D.jpg", fretSrc: "assets/images/fretboardE-A-D.jpg", answer: "E-A-D", audio: "assets/Audio/Pitch recognition audio-E-A-D.mp3" },
-        { src: "assets/images/staffE-G-B.jpg", fretSrc: "assets/images/fretboardE-G-B.jpg", answer: "E-G-B", audio: "assets/Audio/Pitch recognition audio-E-G-B.mp3" },
-        { src: "assets/images/staffE-G-C.jpg", fretSrc: "assets/images/fretboardE-G-C.jpg", answer: "E-G-C", audio: "assets/Audio/Pitch recognition audio-E-G-C.mp3" },
-        { src: "assets/images/staffE-G-D.jpg", fretSrc: "assets/images/fretboardE-G-D.jpg", answer: "E-G-D", audio: "assets/Audio/Pitch recognition audio-E-G-D.mp3" },
-        { src: "assets/images/staffF-A-B.jpg", fretSrc: "assets/images/fretboardF-A-B.jpg", answer: "F-A-B", audio: "assets/Audio/Pitch recognition audio-F-A-B.mp3" },
-        { src: "assets/images/staffF-A-C.jpg", fretSrc: "assets/images/fretboardF-A-C.jpg", answer: "F-A-C", audio: "assets/Audio/Pitch recognition audio-F-A-C.mp3" },
-        { src: "assets/images/staffF-A-D.jpg", fretSrc: "assets/images/fretboardF-A-D.jpg", answer: "F-A-D", audio: "assets/Audio/Pitch recognition audio-F-A-D.mp3" },
-        { src: "assets/images/staffF-G-B.jpg", fretSrc: "assets/images/fretboardF-G-B.jpg", answer: "F-G-B", audio: "assets/Audio/Pitch recognition audio-F-G-B.mp3" },
-        { src: "assets/images/staffF-G-C.jpg", fretSrc: "assets/images/fretboardF-G-C.jpg", answer: "F-G-C", audio: "assets/Audio/Pitch recognition audio-F-G-C.mp3" },
-        { src: "assets/images/staffF-G-D.jpg", fretSrc: "assets/images/fretboardF-G-D.jpg", answer: "F-G-D", audio: "assets/Audio/Pitch recognition audio-F-G-D.mp3" },
+        { src: "assets/images/staffD-A-B.jpg", fretSrc: "assets/images/fretboardD-A-B.jpg", answer: "D-A-B", audio: "assets/audio/D-A-B.mp3" },
+        { src: "assets/images/staffD-A-C.jpg", fretSrc: "assets/images/fretboardD-A-C.jpg", answer: "D-A-C", audio: "assets/audio/D-A-C.mp3" },
+        { src: "assets/images/staffD-A-D.jpg", fretSrc: "assets/images/fretboardD-A-D.jpg", answer: "D-A-D", audio: "assets/audio/D-A-D.mp3" },
+        { src: "assets/images/staffD-G-B.jpg", fretSrc: "assets/images/fretboardD-G-B.jpg", answer: "D-G-B", audio: "assets/audio/D-G-B.mp3" },
+        { src: "assets/images/staffD-G-C.jpg", fretSrc: "assets/images/fretboardD-G-C.jpg", answer: "D-G-C", audio: "assets/audio/D-G-C.mp3" },
+        { src: "assets/images/staffD-G-D.jpg", fretSrc: "assets/images/fretboardD-G-D.jpg", answer: "D-G-D", audio: "assets/audio/D-G-D.mp3" },
+        { src: "assets/images/staffE-A-B.jpg", fretSrc: "assets/images/fretboardE-A-B.jpg", answer: "E-A-B", audio: "assets/audio/E-A-B.mp3" },
+        { src: "assets/images/staffE-A-C.jpg", fretSrc: "assets/images/fretboardE-A-C.jpg", answer: "E-A-C", audio: "assets/audio/E-A-C.mp3" },
+        { src: "assets/images/staffE-A-D.jpg", fretSrc: "assets/images/fretboardE-A-D.jpg", answer: "E-A-D", audio: "assets/audio/E-A-D.mp3" },
+        { src: "assets/images/staffE-G-B.jpg", fretSrc: "assets/images/fretboardE-G-B.jpg", answer: "E-G-B", audio: "assets/audio/E-G-B.mp3" },
+        { src: "assets/images/staffE-G-C.jpg", fretSrc: "assets/images/fretboardE-G-C.jpg", answer: "E-G-C", audio: "assets/audio/E-G-C.mp3" },
+        { src: "assets/images/staffE-G-D.jpg", fretSrc: "assets/images/fretboardE-G-D.jpg", answer: "E-G-D", audio: "assets/audio/E-G-D.mp3" },
+        { src: "assets/images/staffF-A-B.jpg", fretSrc: "assets/images/fretboardF-A-B.jpg", answer: "F-A-B", audio: "assets/audio/F-A-B.mp3" },
+        { src: "assets/images/staffF-A-C.jpg", fretSrc: "assets/images/fretboardF-A-C.jpg", answer: "F-A-C", audio: "assets/audio/F-A-C.mp3" },
+        { src: "assets/images/staffF-A-D.jpg", fretSrc: "assets/images/fretboardF-A-D.jpg", answer: "F-A-D", audio: "assets/audio/F-A-D.mp3" },
+        { src: "assets/images/staffF-G-B.jpg", fretSrc: "assets/images/fretboardF-G-B.jpg", answer: "F-G-B", audio: "assets/audio/F-G-B.mp3" },
+        { src: "assets/images/staffF-G-C.jpg", fretSrc: "assets/images/fretboardF-G-C.jpg", answer: "F-G-C", audio: "assets/audio/F-G-C.mp3" },
+        { src: "assets/images/staffF-G-D.jpg", fretSrc: "assets/images/fretboardF-G-D.jpg", answer: "F-G-D", audio: "assets/audio/F-G-D.mp3" },
     ];
 
-    let buttonOptions = ["D-A-B", "D-A-C", "D-A-D", "D-G-B", "D-G-C", "D-G-D", "E-A-B", "E-A-C", "E-A-D", "E-G-B", "E-G-C", "E-G-D", "F-A-B", "F-A-C", "F-A-D", "F-G-B", "F-G-C", "F-G-D"];
+    let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
+    let buttonModifiers = ["#", "♭"]
 
     let count = 0;
     let incorrectCount = 0;
     let correctCount = 0;
     let questionCount = 0;
+    let voicing = 0;
     let score = 0;
     let imageOrder = shuffleOrder();
 
@@ -136,28 +148,20 @@
     }
 
     function getButtonOptions(answer) {
-        const tempArray = shuffleButtonOptions([...buttonOptions]);
+        const tempArray = [...buttonOptions];
+        shuffle(tempArray);
         tempArray.pop();
         tempArray.pop();
-        tempArray.pop();
-        tempArray.pop();
-        tempArray.pop();
-        tempArray.pop();
-        tempArray.pop();
-        tempArray.pop();
-        tempArray.pop();
-        tempArray.pop();
-
         if (!tempArray.includes(answer)) {
             tempArray.pop();
             tempArray.push(answer);
-            shuffleButtonOptions(tempArray);
         }
+        shuffle(tempArray);
         return tempArray;
     }
-    
-    function shuffleButtonOptions(array) {
-        for (let i = buttonOptions.length - 1; i > 0; i--) {
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
@@ -189,12 +193,14 @@
     
 
     function displayQuestion() {
+        voicing = 0;
         if (count >= images.length) {
             count = 0;
             imageOrder = shuffleOrder();
         }
 
         const currentImage = images[imageOrder[count]];
+        //shuffleButtonOptions(buttonOptions);
 
         if (switchImageButton.textContent === "Fretboard") {
             document.getElementById("quizImage").classList.remove("fret");
@@ -207,40 +213,112 @@
 
         const optionsContainer = document.getElementById("options");
         optionsContainer.innerHTML = "";
-        let buttonOptionsShortened = getButtonOptions(currentImage.answer);
-        buttonOptionsShortened.forEach(option => {
+        buttonOptions.forEach(option => {
             if (option === "|") {
-                let br = document.createElement("br");
-                optionsContainer.appendChild(br);
+                optionsContainer.appendChild(document.createElement("br"));
             }
             else {
                 let button = document.createElement("button");
                 button.textContent = option;
-                button.onclick = () => checkAnswer(button, option === currentImage.answer);
+                button.onclick = () => checkAnswer(button, option === currentImage.answer, currentImage);
                 optionsContainer.appendChild(button);
             }
         });
+        optionsContainer.appendChild(document.createElement("br"))
+        buttonModifiers.forEach(option => {
+            let button = document.createElement("button");
+            button.textContent = option;
+            button.classList.add("accidental");
+            button.disabled = true;
+            button.onclick = () => checkAnswerAccidental(button, currentImage);
+            optionsContainer.appendChild(button);
+        })
     }
 
-    async function checkAnswer(button, isCorrect) {
+    async function checkAnswer(button, isCorrect, currentImage) {
         //const buttons = document.querySelectorAll("#options button");
         if (isCorrect) {
+            button.classList.add("correct");
+            voicing = 0;
+            const audio = new Audio(images[imageOrder[count]].audio);
+            audio.play();
+            count++;
+            correctCount++;
+            questionCount++;
+            score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+            await new Promise(r => setTimeout(r, 1000));
+            displayQuestion();
+        }
+        else {
+            if ((currentImage.answer.charAt(voicing+1).includes("#") || currentImage.answer.charAt(voicing+1).includes("♭")) && button.textContent.includes(currentImage.answer.charAt(voicing))){
                 button.classList.add("correct");
-                const audio = new Audio(images[imageOrder[count]].audio);
-                audio.play();
-                count++;
-                correctCount++;
-                questionCount++;
-                score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
-                await new Promise(r => setTimeout(r, 750));
-                displayQuestion();
+                enableAccidentals(true);
+            }
+            else{    
+                button.disabled = true;
+                if (button.textContent === currentImage.answer.charAt(voicing)) {
+                    button.classList.add("correct");
+                    // await new Promise(r => setTimeout(r, 370));
+                    // button.classList.remove("correct");
+                    button.disabled = true;
+                    voicing += 2;
+                    if (voicing > currentImage.answer.length - 1) {
+                        checkAnswer(button, true, currentImage);
+                    }
+                }
+                else {
+                    incorrectAnswer(button);
+                }
+            }
+        }
+    }
+    
+
+    async function checkAnswerAccidental(button, currentImage) {
+        if (button.textContent === currentImage.answer.charAt(voicing+1))  {
+            button.classList.add("correct");
+            button.disabled = true;
+            await new Promise(r => setTimeout(r, 370));
+            button.classList.remove("correct");
+            button.disabled = false;
+            voicing += voicing + 3;
+            if (voicing > currentImage.answer.length - 1) {
+                checkAnswer(button, true, currentImage);
             }
             else {
-                incorrectCount++;
-                button.classList.add("incorrect");
-                score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+                enableAccidentals(false);
             }
-            button.disabled = true;
+        }
+        else {
+            incorrectAnswer(button);
+        }
+    }
+
+    async function incorrectAnswer(button) {
+        score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+        button.classList.add("incorrect");
+        button.disabled = true;
+        await new Promise(r => setTimeout(r, 450));
+        button.classList.remove("incorrect");
+        button.disabled = false;
+    }
+
+    async function enableAccidentals(isEnabled) {
+        const buttons = document.querySelectorAll("#options button");
+        if (isEnabled) {
+            buttons.forEach(button => {
+                if (button.textContent === "#" || button.textContent === "♭") {
+                    button.disabled = false;
+                }
+            });
+        }
+        else {
+            buttons.forEach(button => {
+                if (button.textContent === "#" || button.textContent === "♭") {
+                    button.disabled = true;
+                }
+            });
+        }
     }
 
     displayQuestion();
