@@ -269,6 +269,7 @@
     }
 
     async function incorrectAnswer(button) {
+        incorrectCount++;
         score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
         button.classList.add("incorrect");
         button.disabled = true;

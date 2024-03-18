@@ -86,24 +86,15 @@
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
-        { src: "assets/images/staffA1.jpg", fretSrc: "assets/images/fretboardA1.jpg", answer: "A", audio: "assets/audio/Pitch recognition audio-A1.mp3" },
-        { src: "assets/images/staffB1.jpg", fretSrc: "assets/images/fretboardB1.jpg", answer: "B", audio: "assets/audio/Pitch recognition audio-B1.mp3" },
         { src: "assets/images/staffB-E.jpg", fretSrc: "assets/images/fretboardB-E.jpg", answer: "B-E", audio: "assets/audio/Pitch recognition audio-B-E.mp3" },
         { src: "assets/images/staffB-F.jpg", fretSrc: "assets/images/fretboardB-F.jpg", answer: "B-F", audio: "assets/audio/Pitch recognition audio-B-F.mp3" },
         { src: "assets/images/staffB-G.jpg", fretSrc: "assets/images/fretboardB-G.jpg", answer: "B-G", audio: "assets/audio/Pitch recognition audio-B-G.mp3" },
-        { src: "assets/images/staffC2.jpg", fretSrc: "assets/images/fretboardC2.jpg", answer: "C", audio: "assets/audio/Pitch recognition audio-C2.mp3" },
         { src: "assets/images/staffC-E.jpg", fretSrc: "assets/images/fretboardC-E.jpg", answer: "C-E", audio: "assets/audio/Pitch recognition audio-C-E.mp3" },
         { src: "assets/images/staffC-F.jpg", fretSrc: "assets/images/fretboardC-F.jpg", answer: "C-F", audio: "assets/audio/Pitch recognition audio-C-F.mp3" },
         { src: "assets/images/staffC-G.jpg", fretSrc: "assets/images/fretboardC-G.jpg", answer: "C-G", audio: "assets/audio/Pitch recognition audio-C-G.mp3" },
-        { src: "assets/images/staffD1.jpg", fretSrc: "assets/images/fretboardD1.jpg", answer: "D", audio: "assets/audio/Pitch recognition audio-D1.mp3" },
         { src: "assets/images/staffD-E.jpg", fretSrc: "assets/images/fretboardD-E.jpg", answer: "D-E", audio: "assets/audio/Pitch recognition audio-D-E.mp3" },
         { src: "assets/images/staffD-F.jpg", fretSrc: "assets/images/fretboardD-F.jpg", answer: "D-F", audio: "assets/audio/Pitch recognition audio-D-F.mp3" },
         { src: "assets/images/staffD-G.jpg", fretSrc: "assets/images/fretboardD-G.jpg", answer: "D-G", audio: "assets/audio/Pitch recognition audio-D-G.mp3" },
-        { src: "assets/images/staffD2.jpg", fretSrc: "assets/images/fretboardD2.jpg", answer: "D", audio: "assets/audio/Pitch recognition audio-D2.mp3" },
-        { src: "assets/images/staffE2.jpg", fretSrc: "assets/images/fretboardE2.jpg", answer: "E", audio: "assets/audio/Pitch recognition audio-E2.mp3" },
-        { src: "assets/images/staffF2.jpg", fretSrc: "assets/images/fretboardF2.jpg", answer: "F", audio: "assets/audio/Pitch recognition audio-F2.mp3" },
-        { src: "assets/images/staffG1.jpg", fretSrc: "assets/images/fretboardG1.jpg", answer: "G", audio: "assets/audio/Pitch recognition audio-G1.mp3" },
-        { src: "assets/images/staffG2.jpg", fretSrc: "assets/images/fretboardG2.jpg", answer: "G", audio: "assets/audio/Pitch recognition audio-G2.mp3" },
     ];
 
     let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
@@ -265,6 +256,7 @@
     }
 
     async function incorrectAnswer(button) {
+        incorrectCount++;
         score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
         button.classList.add("incorrect");
         button.disabled = true;
