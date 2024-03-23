@@ -89,7 +89,7 @@
     const images = [
         { src: "assets/images/staffA.jpg", fretSrc: "assets/images/fretboardA.jpg", answer: "A", audio: "assets/audio/Pitch recognition audio-Low A.mp3" },
         { src: "assets/images/staffA1.jpg", fretSrc: "assets/images/fretboardA1.jpg", answer: "A", audio: "assets/audio/Pitch recognition audio-A1.mp3" },
-        { src: "assets/images/As1.jpg", fretSrc: "assets/images/Bb1 or As1.jpg", answer: "A#", audio: "assets/audio/As1.mp3" },
+        { src: "assets/images/As1.jpg", fretSrc: "assets/images/Bb1 or As1.jpg", answer: "A#", audio: "assets/audio/Pitch recognition audio-Asharp-Bb1.mp3" },
         { src: "assets/images/staffBb1.jpg", fretSrc: "assets/images/fretboardBb1-Asharp1.jpg", answer: "B♭", audio: "assets/audio/Pitch recognition audio-Asharp-Bb1.mp3" },
         { src: "assets/images/staffB1.jpg", fretSrc: "assets/images/fretboardB1.jpg", answer: "B", audio: "assets/audio/Pitch recognition audio-B1.mp3" },
         { src: "assets/images/staffB1.jpg", fretSrc: "assets/images/B1 on (3).jpg", answer: "B", audio: "assets/audio/Pitch recognition audio-B1.mp3" },
@@ -102,6 +102,7 @@
         { src: "assets/images/staffE2.jpg", fretSrc: "assets/images/fretboardE2.jpg", answer: "E", audio: "assets/audio/Pitch recognition audio-E2.mp3" },
         { src: "assets/images/staffF1.jpg", fretSrc: "assets/images/fretboardF1.jpg", answer: "F", audio: "assets/audio/Pitch recognition audio-F1.mp3" },
         { src: "assets/images/staffF2.jpg", fretSrc: "assets/images/fretboardF2.jpg", answer: "F", audio: "assets/audio/Pitch recognition audio-F2.mp3" },
+        { src: "assets/images/Fs.jpg", fretSrc: "assets/images/FretLowFs.jpg", answer: "F#", audio: "assets/audio/Note Name Audio Low Fs.wav" },
         { src: "assets/images/Fs1.jpg", fretSrc: "assets/images/fretboardFs1.jpg", answer: "F#", audio: "assets/audio/Fs1.mp3" },
         { src: "assets/images/staffFsharp2.jpg", fretSrc: "assets/images/fretboardFsharp2.jpg", answer: "F#", audio: "assets/audio/Pitch recognition audio-Fsharp2.mp3" },
         { src: "assets/images/staffG1.jpg", fretSrc: "assets/images/fretboardG1.jpg", answer: "G", audio: "assets/audio/Pitch recognition audio-G1.mp3" },
@@ -123,7 +124,7 @@
 
     
     function shuffleOrder() {
-        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
         for (let i = numbers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
