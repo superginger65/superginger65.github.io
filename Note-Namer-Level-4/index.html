@@ -215,14 +215,12 @@
                 button.classList.add("correct");
                 enableAccidentals(true);
             }
-            else {    
-                button.disabled = true;
+            else {
                 if (button.textContent === currentImage.answer.charAt(voicing)) {
-                    button.classList.add("correct");
-                    // await new Promise(r => setTimeout(r, 370));
-                    // button.classList.remove("correct");
-                    button.disabled = true;
+                    button.classList.add("correct"); 
                     voicing += 2;
+                    await new Promise(r => setTimeout(r, 370));
+                    button.classList.remove("correct");
                     if (voicing > currentImage.answer.length - 1) {
                         checkAnswer(button, true, currentImage);
                     }
@@ -237,12 +235,12 @@
 
     async function checkAnswerAccidental(button, currentImage) {
         if (button.textContent === currentImage.answer.charAt(voicing+1))  {
+            voicing += voicing + 3;
             button.classList.add("correct");
             button.disabled = true;
             await new Promise(r => setTimeout(r, 370));
             button.classList.remove("correct");
             button.disabled = false;
-            voicing += voicing + 3;
             if (voicing > currentImage.answer.length - 1) {
                 checkAnswer(button, true, currentImage);
             }

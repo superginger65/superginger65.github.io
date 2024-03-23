@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Note-Namer Level 8a</title>
+<title>Note-Namer Level 8b</title>
 <style>
     body {
         margin: auto;
@@ -51,6 +51,22 @@
     button.accidental {
         margin-left: 1.8%;
         margin-right: 1.8%;
+        min-height: 4rem;
+    }
+    button.secondAnswer {
+        background-image: linear-gradient(left , green 50%, #bc4c01 51%);
+        background-image: -o-linear-gradient(left , green 50%, #bc4c01 51%);
+        background-image: -moz-linear-gradient(left , green 50%, #bc4c01 51%);
+        background-image: -webkit-linear-gradient(left , green 50%, #bc4c01 51%);
+        background-image: -ms-linear-gradient(left , green 50%, rgb(#bc4c01) 51%);
+
+        background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            right bottom,
+            color-stop(0.5, green),
+            color-stop(0.51, #bc4c01)
+        );
     }
     @keyframes shake {
         0% {
@@ -212,6 +228,7 @@
             else {
                 let button = document.createElement("button");
                 button.textContent = option;
+                button.classList.add("accidental");
                 button.onclick = () => checkAnswerAccidental(button, currentImage);
                 optionsContainer.appendChild(button);
             }
@@ -234,17 +251,14 @@
         }
         else {
             if ((currentImage.answer.charAt(voicing+1).includes("#") || currentImage.answer.charAt(voicing+1).includes("♭")) && button.textContent.includes(currentImage.answer.charAt(voicing))){
-                button.classList.add("correct");
+                setAnswerOrSecondAnswer(button,currentImage.answer);
                 enableAccidentals(true);
             }
-            else{    
-                button.disabled = true;
+            else {    
                 if (button.textContent === currentImage.answer.charAt(voicing)) {
-                    button.classList.add("correct");
-                    button.disabled = true;
-                    await new Promise(r => setTimeout(r, 450));
-                    button.classList.remove("correct");
-                    button.disabled = false;
+                    setAnswerOrSecondAnswer(button, currentImage.answer);
+                    // await new Promise(r => setTimeout(r, 450));
+                    // button.classList.remove("correct");
                     voicing += 2;
                     if (voicing > currentImage.answer.length - 1) {
                         checkAnswer(button, true, currentImage);
@@ -256,21 +270,19 @@
             }
         }
     }
+        
+    
     
 
     async function checkAnswerAccidental(button, currentImage) {
         if (button.textContent === currentImage.answer.charAt(voicing+1))  {
-            button.classList.add("correct");
-            button.disabled = true;
-            await new Promise(r => setTimeout(r, 450));
-            button.classList.remove("correct");
-            button.disabled = false;
-            voicing += voicing + 3;
+            setAnswerOrSecondAnswer(button, currentImage.answer);
+            voicing += 3;
             if (voicing > currentImage.answer.length - 1) {
                 checkAnswer(button, true, currentImage);
             }
             else {
-                enableAccidentals(false);
+                // enableAccidentals(false);
             }
         }
         else {
@@ -278,14 +290,38 @@
         }
     }
 
+    function setAnswerOrSecondAnswer(button, str) {
+        let count = 0;
+        let letter = button.textContent;
+
+        if (button.classList.contains("incorrect")) {
+                button.classList.remove("incorrect");
+        }
+
+        for (let i = voicing; i < str.length; i++) {
+            // check if the character is at that position
+            if (str.charAt(i) == letter) {
+                count += 1;
+            }
+        }
+        if (count > 1) {
+            button.classList.add("secondAnswer");
+        }
+        else {
+            if (button.classList.contains("secondAnswer")) {
+                button.classList.remove("secondAnswer");
+            }
+            button.classList.add("correct");
+        }
+    }
+
     async function incorrectAnswer(button) {
         incorrectCount++;
         score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
         button.classList.add("incorrect");
-        button.disabled = true;
-        await new Promise(r => setTimeout(r, 450));
-        button.classList.remove("incorrect");
-        button.disabled = false;
+        // await new Promise(r => setTimeout(r, 450));
+        // button.classList.remove("incorrect");
+        // button.disabled = false;
     }
 
     async function enableAccidentals(isEnabled) {
