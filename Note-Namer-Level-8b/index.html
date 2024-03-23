@@ -241,7 +241,6 @@
                 if (button.textContent === currentImage.answer.charAt(voicing)) {
                     voicing += 2;
                     button.classList.add("correct");
-                    button.disabled = true;
                     await new Promise(r => setTimeout(r, 450));
                     button.classList.remove("correct");
                     if (voicing > currentImage.answer.length - 1) {

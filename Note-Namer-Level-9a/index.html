@@ -87,29 +87,27 @@
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
-        { src: "assets/images/D-Bb-C.jpg", fretSrc: "assets/images/Triad D-Bb-C.jpg", answer: "D-B♭-C", audio: "assets/audio/D-Bb-C.mp3" },
-        { src: "assets/images/D-Bb-D.jpg", fretSrc: "assets/images/Triad D-Bb-D.jpg", answer: "D-B♭-D", audio: "assets/audio/D-Bb-D.mp3" },
-        { src: "assets/images/D-Gs-B.jpg", fretSrc: "assets/images/Triad D-Gs-B.jpg", answer: "D-G#-B", audio: "assets/audio/D-Gs-B.mp3" },
-        { src: "assets/images/D-Gs-C.jpg", fretSrc: "assets/images/Triad D-Gs-C.jpg", answer: "D-G#-C", audio: "assets/audio/D-Gs-C.mp3" },
-        { src: "assets/images/D-Gs-D.jpg", fretSrc: "assets/images/Triad D-Gs-D.jpg", answer: "D-G#-D", audio: "assets/audio/D-Gs-D.mp3" },
-        { src: "assets/images/Ds-A-B.jpg", fretSrc: "assets/images/Triad Ds-A-B.jpg", answer: "D#-A-B", audio: "assets/audio/Ds-A-B.mp3" },
-        { src: "assets/images/Ds-A-C.jpg", fretSrc: "assets/images/Triad Ds-A-C.jpg", answer: "D#-A-C", audio: "assets/audio/Ds-A-C.mp3" },
-        { src: "assets/images/Ds-G-B.jpg", fretSrc: "assets/images/Triad Ds-G-B.jpg", answer: "D#-G-B", audio: "assets/audio/Ds-G-B.mp3" },
-        { src: "assets/images/E-Bb-C.jpg", fretSrc: "assets/images/Triad E-Bb-C.jpg", answer: "E-B♭-C", audio: "assets/audio/E-Bb-C.mp3" },
-        { src: "assets/images/E-Bb-D.jpg", fretSrc: "assets/images/Triad E-Bb-D.jpg", answer: "E-B♭-D", audio: "assets/audio/E-Bb-D.mp3" },
-        { src: "assets/images/E-Gs-B.jpg", fretSrc: "assets/images/Triad E-Gs-B.jpg", answer: "E-G#-B", audio: "assets/audio/E-Gs-B.mp3" },
-        { src: "assets/images/E-Gs-D.jpg", fretSrc: "assets/images/Triad E-Gs-D.jpg", answer: "E-G#-D", audio: "assets/audio/E-Gs-D.mp3" },
-        { src: "assets/images/Eb-A-C.jpg", fretSrc: "assets/images/Triad Eb-A-C.jpg", answer: "E♭-A-C", audio: "assets/audio/Eb-A-C.mp3" },
-        { src: "assets/images/Eb-G-C.jpg", fretSrc: "assets/images/Triad Eb-G-D.jpg", answer: "E♭-G-D", audio: "assets/audio/Eb-G-D.mp3" },
-        { src: "assets/images/F-Bb-C.jpg", fretSrc: "assets/images/Triad F-Bb-C.jpg", answer: "F-B♭-C", audio: "assets/audio/F-Bb-C.mp3" },
-        { src: "assets/images/F-Bb-D.jpg", fretSrc: "assets/images/Triad F-Bb-D.jpg", answer: "F-B♭-D", audio: "assets/audio/F-Bb-D.mp3" },
-        { src: "assets/images/F-Gs-B.jpg", fretSrc: "assets/images/Triad F-Gs-B.jpg", answer: "F-G#-B", audio: "assets/audio/F-Gs-B.mp3" },
-        { src: "assets/images/F-Gs-D.jpg", fretSrc: "assets/images/Triad F-Gs-D.jpg", answer: "F-G#-D", audio: "assets/audio/F-Gs-D.mp3" },
+        { src: "assets/images/staff A-B-E.jpg", fretSrc: "assets/images/A-B-E.jpg", answer: "A-B-E", audio: "assets/audio/A-B-E.mp3" },
+        { src: "assets/images/staff A-B-F.jpg", fretSrc: "assets/images/A-B-F.jpg", answer: "A-B-F", audio: "assets/audio/A-B-F.mp3" },
+        { src: "assets/images/staff A-B-G.jpg", fretSrc: "assets/images/A-B-G.jpg", answer: "A-B-G", audio: "assets/audio/A-B-G.mp3" },
+        { src: "assets/images/staff A-C-E.jpg", fretSrc: "assets/images/A-C-E.jpg", answer: "A-C-E", audio: "assets/audio/A-C-E.mp3" },
+        { src: "assets/images/staff A-C-G.jpg", fretSrc: "assets/images/A-C-G.jpg", answer: "A-C-G", audio: "assets/audio/A-C-G.mp3" },
+        { src: "assets/images/staff A-D-E.jpg", fretSrc: "assets/images/A-D-E.jpg", answer: "A-D-E", audio: "assets/audio/A-D-E.mp3" },
+        { src: "assets/images/staff A-D-F.jpg", fretSrc: "assets/images/A-D-F.jpg", answer: "A-D-F", audio: "assets/audio/A-D-F.mp3" },
+        { src: "assets/images/staff A-D-G.jpg", fretSrc: "assets/images/A-D-G.jpg", answer: "A-D-G", audio: "assets/audio/A-D-G.mp3" },
+        { src: "assets/images/staff G-B-E.jpg", fretSrc: "assets/images/G-B-E.jpg", answer: "G-B-E", audio: "assets/audio/G-B-E.mp3" },
+        { src: "assets/images/staff G-B-F.jpg", fretSrc: "assets/images/G-B-F.jpg", answer: "G-B-F", audio: "assets/audio/G-B-F.mp3" },
+        { src: "assets/images/staff G-B-G.jpg", fretSrc: "assets/images/G-B-G.jpg", answer: "G-B-G", audio: "assets/audio/G-B-G.mp3" },
+        { src: "assets/images/staff G-C-E.jpg", fretSrc: "assets/images/G-C-E.jpg", answer: "G-C-E", audio: "assets/audio/G-C-E.mp3" },
+        { src: "assets/images/staff G-C-F.jpg", fretSrc: "assets/images/G-C-F.jpg", answer: "G-C-F", audio: "assets/audio/G-C-F.mp3" },
+        { src: "assets/images/staff G-C-G.jpg", fretSrc: "assets/images/G-C-G.jpg", answer: "G-C-G", audio: "assets/audio/G-C-G.mp3" },
+        { src: "assets/images/staff G-D-E.jpg", fretSrc: "assets/images/G-D-E.jpg", answer: "G-D-E", audio: "assets/audio/G-D-E.mp3" },
+        { src: "assets/images/staff G-D-F.jpg", fretSrc: "assets/images/G-D-F.jpg", answer: "G-D-F", audio: "assets/audio/G-D-F.mp3" },
+        { src: "assets/images/staff G-D-G.jpg", fretSrc: "assets/images/G-D-G.jpg", answer: "G-D-G", audio: "assets/audio/G-D-G.mp3" },
     ];
     
 
     let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
-    let buttonAccidentals = ["#", "♭"];
 
     let count = 0;
     let incorrectCount = 0;
@@ -121,7 +119,7 @@
 
     
     function shuffleOrder() {
-        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
         for (let i = numbers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
@@ -206,16 +204,6 @@
                 optionsContainer.appendChild(button);
             }
         });
-        optionsContainer.appendChild(document.createElement("br"));
-        buttonAccidentals.forEach(option => {
-            let button = document.createElement("button");
-            button.textContent = option;
-            button.classList.add("accidental");
-            button.onclick = () => checkAnswerAccidental(button, currentImage);
-            optionsContainer.appendChild(button);
-        });
-        
-        enableAccidentals(false);
     }
 
     async function checkAnswer(button, isCorrect, currentImage) {
@@ -241,7 +229,6 @@
                 if (button.textContent === currentImage.answer.charAt(voicing)) {
                     voicing += 2;
                     button.classList.add("correct");
-                    button.disabled = true;
                     await new Promise(r => setTimeout(r, 450));
                     button.classList.remove("correct");
                     if (voicing > currentImage.answer.length - 1) {
