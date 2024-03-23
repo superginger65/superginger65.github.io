@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Note-Namer Level 13</title>
+<title>Note-Namer Level 12</title>
 <style>
     body {
         margin: auto;
@@ -54,6 +54,18 @@
         min-height: 3.2rem;
         min-width: 2.1rem;
     }
+    button.qualities {
+        margin-left: 1.8%;
+        margin-right: 1.8%;
+        min-height: 3.2rem;
+        min-width: 2.1rem;
+    }
+    button.colorings {
+        margin-left: 1.8%;
+        margin-right: 1.8%;
+        min-height: 3.2rem;
+        min-width: 2.1rem;
+    }
     @keyframes shake {
         0% {
             margin-right: 0%;
@@ -87,29 +99,56 @@
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
-        { src: "assets/images/D-Bb-C.jpg", fretSrc: "assets/images/Triad D-Bb-C.jpg", answer: "D-B♭-C", audio: "assets/audio/D-Bb-C.mp3" },
-        { src: "assets/images/D-Bb-D.jpg", fretSrc: "assets/images/Triad D-Bb-D.jpg", answer: "D-B♭-D", audio: "assets/audio/D-Bb-D.mp3" },
-        { src: "assets/images/D-Gs-B.jpg", fretSrc: "assets/images/Triad D-Gs-B.jpg", answer: "D-G#-B", audio: "assets/audio/D-Gs-B.mp3" },
-        { src: "assets/images/D-Gs-C.jpg", fretSrc: "assets/images/Triad D-Gs-C.jpg", answer: "D-G#-C", audio: "assets/audio/D-Gs-C.mp3" },
-        { src: "assets/images/D-Gs-D.jpg", fretSrc: "assets/images/Triad D-Gs-D.jpg", answer: "D-G#-D", audio: "assets/audio/D-Gs-D.mp3" },
-        { src: "assets/images/Ds-A-B.jpg", fretSrc: "assets/images/Triad Ds-A-B.jpg", answer: "D#-A-B", audio: "assets/audio/Ds-A-B.mp3" },
-        { src: "assets/images/Ds-A-C.jpg", fretSrc: "assets/images/Triad Ds-A-C.jpg", answer: "D#-A-C", audio: "assets/audio/Ds-A-C.mp3" },
-        { src: "assets/images/Ds-G-B.jpg", fretSrc: "assets/images/Triad Ds-G-B.jpg", answer: "D#-G-B", audio: "assets/audio/Ds-G-B.mp3" },
-        { src: "assets/images/E-Bb-C.jpg", fretSrc: "assets/images/Triad E-Bb-C.jpg", answer: "E-B♭-C", audio: "assets/audio/E-Bb-C.mp3" },
-        { src: "assets/images/E-Bb-D.jpg", fretSrc: "assets/images/Triad E-Bb-D.jpg", answer: "E-B♭-D", audio: "assets/audio/E-Bb-D.mp3" },
-        { src: "assets/images/E-Gs-B.jpg", fretSrc: "assets/images/Triad E-Gs-B.jpg", answer: "E-G#-B", audio: "assets/audio/E-Gs-B.mp3" },
-        { src: "assets/images/E-Gs-D.jpg", fretSrc: "assets/images/Triad E-Gs-D.jpg", answer: "E-G#-D", audio: "assets/audio/E-Gs-D.mp3" },
-        { src: "assets/images/Eb-A-C.jpg", fretSrc: "assets/images/Triad Eb-A-C.jpg", answer: "E♭-A-C", audio: "assets/audio/Eb-A-C.mp3" },
-        { src: "assets/images/Eb-G-C.jpg", fretSrc: "assets/images/Triad Eb-G-C.jpg", answer: "E♭-G-C", audio: "assets/audio/Eb-G-C.mp3" },
-        { src: "assets/images/F-Bb-C.jpg", fretSrc: "assets/images/Triad F-Bb-C.jpg", answer: "F-B♭-C", audio: "assets/audio/F-Bb-C.mp3" },
-        { src: "assets/images/F-Bb-D.jpg", fretSrc: "assets/images/Triad F-Bb-D.jpg", answer: "F-B♭-D", audio: "assets/audio/F-Bb-D.mp3" },
-        { src: "assets/images/F-Gs-B.jpg", fretSrc: "assets/images/Triad F-Gs-B.jpg", answer: "F-G#-B", audio: "assets/audio/F-Gs-B.mp3" },
-        { src: "assets/images/F-Gs-D.jpg", fretSrc: "assets/images/Triad F-Gs-D.jpg", answer: "F-G#-D", audio: "assets/audio/F-Gs-D.mp3" },
+        { src: "assets/images/Strings 123/A 7-123.jpg", quality: "", coloring: "", answer: "F-G#-D", audio: "assets/audio/F-Gs-D.mp3" },
+        { src: "assets/images/Strings 123/A majo-123.jpg", quality: "", coloring: "", answer: "D-B♭-C", audio: "assets/audio/D-Bb-C.mp3" },
+        { src: "assets/images/Strings 123/A min-123.jpg", quality: "", coloring: "", answer: "D-B♭-D", audio: "assets/audio/D-Bb-D.mp3" },
+        { src: "assets/images/Strings 123/A min7-123.jpg", quality: "", coloring: "", answer: "D-G#-B", audio: "assets/audio/D-Gs-B.mp3" },
+        { src: "assets/images/Strings 123/A sus-123.jpg", quality: "", coloring: "", answer: "D-G#-C", audio: "assets/audio/D-Gs-C.mp3" },
+        { src: "assets/images/Strings 123/As dim-123.jpg", quality: "", coloring: "", answer: "D-G#-D", audio: "assets/audio/D-Gs-D.mp3" },
+        { src: "assets/images/Strings 123/B half dim-123.jpg", quality: "", coloring: "", answer: "D#-A-B", audio: "assets/audio/Ds-A-B.mp3" },
+        { src: "assets/images/Strings 123/Bb maj-123.jpg", quality: "", coloring: "", answer: "D#-A-C", audio: "assets/audio/Ds-A-C.mp3" },
+        { src: "assets/images/Strings 123/C 7-123-1.jpg", quality: "", coloring: "", answer: "D#-G-B", audio: "assets/audio/Ds-G-B.mp3" },
+        { src: "assets/images/Strings 123/C 7-123-2.jpg", quality: "", coloring: "", answer: "E-B♭-C", audio: "assets/audio/E-Bb-C.mp3" },
+        { src: "assets/images/Strings 123/C maj-123.jpg", quality: "", coloring: "", answer: "E-B♭-D", audio: "assets/audio/E-Bb-D.mp3" },
+        { src: "assets/images/Strings 123/D maj-123.jpg", quality: "", coloring: "", answer: "E-G#-B", audio: "assets/audio/E-Gs-B.mp3" },
+        { src: "assets/images/Strings 123/D min-123.jpg", quality: "", coloring: "", answer: "E-G#-D", audio: "assets/audio/E-Gs-D.mp3" },
+        { src: "assets/images/Strings 123/Dsus-123.jpg", quality: "", coloring: "", answer: "E♭-A-C", audio: "assets/audio/Eb-A-C.mp3" },
+        { src: "assets/images/Strings 123/E 7-123.jpg", quality: "", coloring: "", answer: "E♭-G-C", audio: "assets/audio/Eb-G-C.mp3" },
+        { src: "assets/images/Strings 123/E MAJ-123.jpg", quality: "", coloring: "", answer: "F-B♭-C", audio: "assets/audio/F-Bb-C.mp3" },
+        { src: "assets/images/Strings 123/E min-123.jpg", quality: "", coloring: "", answer: "F-B♭-D", audio: "assets/audio/F-Bb-D.mp3" },
+        { src: "assets/images/Strings 123/G maj-123-1.jpg", quality: "", coloring: "", answer: "F-G#-B", audio: "assets/audio/F-Gs-B.mp3" },
+        { src: "assets/images/Strings 123/G maj-123-2.jpg", quality: "", coloring: "", answer: "F-G#-D", audio: "assets/audio/F-Gs-D.mp3" },
+        { src: "assets/images/Strings 123/G min-123.j.jpg", quality: "", coloring: "", answer: "E♭-G-C", audio: "assets/audio/Eb-G-C.mp3" },
+        { src: "assets/images/Strings 123/G7-123-1.jp.jpg", quality: "", coloring: "", answer: "F-B♭-C", audio: "assets/audio/F-Bb-C.mp3" },
+        { src: "assets/images/Strings 123/G7-123-2.jp.jpg", quality: "", coloring: "", answer: "F-B♭-D", audio: "assets/audio/F-Bb-D.mp3" },
+        { src: "assets/images/Strings 123/Gs FULLY dim 7-123.jpg", quality: "", coloring: "", answer: "F-G#-B", audio: "assets/audio/F-Gs-B.mp3" },
+        { src: "assets/images/Strings 432/A min.jpg", quality: "", coloring: "", answer: "D-G#-C", audio: "assets/audio/D-Gs-C.mp3" },
+        { src: "assets/images/Strings 432/A sus.jpg", quality: "", coloring: "", answer: "D-G#-D", audio: "assets/audio/D-Gs-D.mp3" },
+        { src: "assets/images/Strings 432/A9.jpg", quality: "", coloring: "", answer: "D#-A-B", audio: "assets/audio/Ds-A-B.mp3" },
+        { src: "assets/images/Strings 432/B7.jpg", quality: "", coloring: "", answer: "D#-A-C", audio: "assets/audio/Ds-A-C.mp3" },
+        { src: "assets/images/Strings 432/Bb maj.jpg", quality: "", coloring: "", answer: "D#-G-B", audio: "assets/audio/Ds-G-B.mp3" },
+        { src: "assets/images/Strings 432/C maj.jpg", quality: "", coloring: "", answer: "E-B♭-C", audio: "assets/audio/E-Bb-C.mp3" },
+        { src: "assets/images/Strings 432/C7.jpg", quality: "", coloring: "", answer: "E-B♭-D", audio: "assets/audio/E-Bb-D.mp3" },
+        { src: "assets/images/Strings 432/Cm.jpg", quality: "", coloring: "", answer: "E-G#-B", audio: "assets/audio/E-Gs-B.mp3" },
+        { src: "assets/images/Strings 432/D min.mp3", quality: "", coloring: "", answer: "E-G#-D", audio: "assets/audio/E-Gs-D.mp3" },
+        { src: "assets/images/Strings 432/D# fully diminished.jpg", quality: "", coloring: "", answer: "E♭-A-C", audio: "assets/audio/Eb-A-C.mp3" },
+        { src: "assets/images/Strings 432/D7.jpg", quality: "", coloring: "", answer: "E♭-G-C", audio: "assets/audio/Eb-G-C.mp3" },
+        { src: "assets/images/Strings 432/E7.jpg", quality: "", coloring: "", answer: "F-B♭-C", audio: "assets/audio/F-Bb-C.mp3" },
+        { src: "assets/images/Strings 432/Em7.jpg", quality: "", coloring: "", answer: "F-B♭-D", audio: "assets/audio/F-Bb-D.mp3" },
+        { src: "assets/images/Strings 432/Emaj.jpg", quality: "", coloring: "", answer: "F-G#-B", audio: "assets/audio/F-Gs-B.mp3" },
+        { src: "assets/images/Strings 432/Emin.jpg", quality: "", coloring: "", answer: "F-G#-D", audio: "assets/audio/F-Gs-D.mp3" },
+        { src: "assets/images/Strings 432/G maj.jpg", quality: "", coloring: "", answer: "E♭-G-C", audio: "assets/audio/Eb-G-C.mp3" },
+        { src: "assets/images/Strings 432/G# fully diminished.jpg", quality: "", coloring: "", answer: "F-B♭-C", audio: "assets/audio/F-Bb-C.mp3" },
+        { src: "assets/images/Strings 432/G+.jpg", quality: "", coloring: "", answer: "F-B♭-D", audio: "assets/audio/F-Bb-D.mp3" },
+        { src: "assets/images/Strings 432/G7-1.jpg", quality: "", coloring: "", answer: "F-G#-B", audio: "assets/audio/F-Gs-B.mp3" },
+        { src: "assets/images/Strings 432/G7-2.jpg", quality: "", coloring: "", answer: "F-G#-D", audio: "assets/audio/F-Gs-D.mp3" },
     ];
     
 
     let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
     let buttonAccidentals = ["#", "♭"];
+    let buttonQualities = ["Major", "Minor", "Diminished", "Augmented"];
+    let buttonColorings = ["7th", "m7", "o7", "9", "sus"]
 
     let count = 0;
     let incorrectCount = 0;
@@ -208,6 +247,14 @@
         });
         optionsContainer.appendChild(document.createElement("br"));
         buttonAccidentals.forEach(option => {
+            let button = document.createElement("button");
+            button.textContent = option;
+            button.classList.add("accidental");
+            button.onclick = () => checkAnswerAccidental(button, currentImage);
+            optionsContainer.appendChild(button);
+        });
+        optionsContainer.appendChild(document.createElement("br"));
+        buttonQualities.forEach(option => {
             let button = document.createElement("button");
             button.textContent = option;
             button.classList.add("accidental");

@@ -54,6 +54,18 @@
         min-height: 3.2rem;
         min-width: 2.1rem;
     }
+    button.qualities {
+        margin-left: 1.8%;
+        margin-right: 1.8%;
+        min-height: 3.2rem;
+        min-width: 2.1rem;
+    }
+    button.colorings {
+        margin-left: 1.8%;
+        margin-right: 1.8%;
+        min-height: 3.2rem;
+        min-width: 2.1rem;
+    }
     @keyframes shake {
         0% {
             margin-right: 0%;
@@ -87,24 +99,37 @@
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
-        { src: "assets/images/D-Bb-C.jpg", fretSrc: "assets/images/Triad D-Bb-C.jpg", answer: "D-B♭-C", audio: "assets/audio/D-Bb-C.mp3" },
-        { src: "assets/images/D-Bb-D.jpg", fretSrc: "assets/images/Triad D-Bb-D.jpg", answer: "D-B♭-D", audio: "assets/audio/D-Bb-D.mp3" },
-        { src: "assets/images/D-Gs-B.jpg", fretSrc: "assets/images/Triad D-Gs-B.jpg", answer: "D-G#-B", audio: "assets/audio/D-Gs-B.mp3" },
-        { src: "assets/images/D-Gs-C.jpg", fretSrc: "assets/images/Triad D-Gs-C.jpg", answer: "D-G#-C", audio: "assets/audio/D-Gs-C.mp3" },
-        { src: "assets/images/D-Gs-D.jpg", fretSrc: "assets/images/Triad D-Gs-D.jpg", answer: "D-G#-D", audio: "assets/audio/D-Gs-D.mp3" },
-        { src: "assets/images/Ds-A-B.jpg", fretSrc: "assets/images/Triad Ds-A-B.jpg", answer: "D#-A-B", audio: "assets/audio/Ds-A-B.mp3" },
-        { src: "assets/images/Ds-A-C.jpg", fretSrc: "assets/images/Triad Ds-A-C.jpg", answer: "D#-A-C", audio: "assets/audio/Ds-A-C.mp3" },
-        { src: "assets/images/Ds-G-B.jpg", fretSrc: "assets/images/Triad Ds-G-B.jpg", answer: "D#-G-B", audio: "assets/audio/Ds-G-B.mp3" },
-        { src: "assets/images/E-Bb-C.jpg", fretSrc: "assets/images/Triad E-Bb-C.jpg", answer: "E-B♭-C", audio: "assets/audio/E-Bb-C.mp3" },
-        { src: "assets/images/E-Bb-D.jpg", fretSrc: "assets/images/Triad E-Bb-D.jpg", answer: "E-B♭-D", audio: "assets/audio/E-Bb-D.mp3" },
-        { src: "assets/images/E-Gs-B.jpg", fretSrc: "assets/images/Triad E-Gs-B.jpg", answer: "E-G#-B", audio: "assets/audio/E-Gs-B.mp3" },
-        { src: "assets/images/E-Gs-D.jpg", fretSrc: "assets/images/Triad E-Gs-D.jpg", answer: "E-G#-D", audio: "assets/audio/E-Gs-D.mp3" },
-        { src: "assets/images/Eb-A-C.jpg", fretSrc: "assets/images/Triad Eb-A-C.jpg", answer: "E♭-A-C", audio: "assets/audio/Eb-A-C.mp3" },
-        { src: "assets/images/Eb-G-C.jpg", fretSrc: "assets/images/Triad Eb-G-C.jpg", answer: "E♭-G-C", audio: "assets/audio/Eb-G-C.mp3" },
-        { src: "assets/images/F-Bb-C.jpg", fretSrc: "assets/images/Triad F-Bb-C.jpg", answer: "F-B♭-C", audio: "assets/audio/F-Bb-C.mp3" },
-        { src: "assets/images/F-Bb-D.jpg", fretSrc: "assets/images/Triad F-Bb-D.jpg", answer: "F-B♭-D", audio: "assets/audio/F-Bb-D.mp3" },
-        { src: "assets/images/F-Gs-B.jpg", fretSrc: "assets/images/Triad F-Gs-B.jpg", answer: "F-G#-B", audio: "assets/audio/F-Gs-B.mp3" },
-        { src: "assets/images/F-Gs-D.jpg", fretSrc: "assets/images/Triad F-Gs-D.jpg", answer: "F-G#-D", audio: "assets/audio/F-Gs-D.mp3" },
+        { src: "assets/images/Staff/A.jpg",   fretSrc: "assets/images/Fingerboard/A.jpg",           answer: "A",    audio: "assets/audio/Note Name Audio Low A.wav" },
+        { src: "assets/images/Staff/A1.jpg",  fretSrc: "assets/images/Fingerboard/A1.tif",          answer: "A",    audio: "assets/audio/Note Name Audio A1.wav" },
+        { src: "assets/images/Staff/As1.jpg", fretSrc: "assets/images/Fingerboard/Bb1 or As1.jpg",  answer: "A#",   audio: "assets/audio/Note Name Audio As-Bb1.wav" },
+        { src: "assets/images/Staff/B.jpg",   fretSrc: "assets/images/Fingerboard/B.jpg",           answer: "B",    audio: "assets/audio/Note Name Audio Low B.wav" },
+        { src: "assets/images/Staff/B1.jpg",  fretSrc: "assets/images/Fingerboard/B1 on (3).jpg",   answer: "B",    audio: "assets/audio/Note Name Audio B1.mp3" },
+        { src: "assets/images/Staff/B1.jpg",  fretSrc: "assets/images/Fingerboard/B1.tif",          answer: "B",    audio: "assets/audio/Note Name Audio B1.mp3" },
+        { src: "assets/images/Staff/Bb1.jpg", fretSrc: "assets/images/Fingerboard/Bb1 or As1.jpg",  answer: "B♭",   audio: "assets/audio/Note Name Audio As-Bb1.wav" },
+        { src: "assets/images/Staff/C1.jpg",  fretSrc: "assets/images/Fingerboard/C1.jpg",          answer: "C",    audio: "assets/audio/Note Name Audio C1.wav" },
+        { src: "assets/images/Staff/C2.jpg",  fretSrc: "assets/images/Fingerboard/C2.tif",          answer: "C",    audio: "assets/audio/Note Name Audio C2.wav" },
+        { src: "assets/images/Staff/Cs1.jpg", fretSrc: "assets/images/Fingerboard/Cs1.jpg",         answer: "C#",   audio: "assets/audio/Note Name Audio Cs1.wav" },
+        { src: "assets/images/Staff/Cs2.jpg", fretSrc: "assets/images/Fingerboard/Cs2.jpg",         answer: "C#",   audio: "assets/audio/Note Name Audio Cs2.wav" },
+        { src: "assets/images/Staff/D1.jpg",  fretSrc: "assets/images/Fingerboard/D1.jpg",          answer: "D",    audio: "assets/audio/Note Name Audio D1.wav" },
+        { src: "assets/images/Staff/D2.jpg",  fretSrc: "assets/images/Fingerboard/D2.tif",          answer: "D",    audio: "assets/audio/Note Name Audio D2.wav" },
+        { src: "assets/images/Staff/Ds1.jpg", fretSrc: "assets/images/Fingerboard/Ds1 or Eb1.jpg",  answer: "D#",   audio: "assets/audio/Note Name Audio Ds1-Eb1.wav" },
+        { src: "assets/images/Staff/Ds2.jpg", fretSrc: "assets/images/Fingerboard/A.jpg",           answer: "D#",   audio: "assets/audio/Note Name Audio Ds2.wav" },
+        { src: "assets/images/Staff/E.jpg",   fretSrc: "assets/images/Fingerboard/E.jpg",           answer: "E",    audio: "assets/audio/Note Name Audio Low E.wav" },
+        { src: "assets/images/Staff/E1.jpg",  fretSrc: "assets/images/Fingerboard/E1.jpg",          answer: "E",    audio: "assets/audio/Note Name Audio E1.wav" },
+        { src: "assets/images/Staff/E2.jpg",  fretSrc: "assets/images/Fingerboard/E2.jpg",          answer: "E",    audio: "assets/audio/Note Name Audio E2.wav" },
+        { src: "assets/images/Staff/Eb1.jpg", fretSrc: "assets/images/Fingerboard/Ds1 or Eb1.jpg",  answer: "E♭",   audio: "assets/audio/Note Name Audio Ds1-Eb1.wav" },
+        { src: "assets/images/Staff/F.jpg",   fretSrc: "assets/images/Fingerboard/F.jpg",           answer: "F",    audio: "assets/audio/Note Name Audio Low F.wav" },
+        { src: "assets/images/Staff/F1.jpg",  fretSrc: "assets/images/Fingerboard/F1.jpg",          answer: "F",    audio: "assets/audio/Note Name Audio F1.wav" },
+        { src: "assets/images/Staff/F2.jpg",  fretSrc: "assets/images/Fingerboard/F2.jpg",          answer: "F",    audio: "assets/audio/Note Name Audio F2.wav" },
+        { src: "assets/images/Staff/Fs.jpg",  fretSrc: "assets/images/Fingerboard/Fs.jpg",          answer: "F#",   audio: "assets/audio/Note Name Audio Low Fs.wav" },
+        { src: "assets/images/Staff/Fs1.jpg", fretSrc: "assets/images/Fingerboard/Fs1.jpg",         answer: "F#",   audio: "assets/audio/Note Name Audio Fs1.wav" },
+        { src: "assets/images/Staff/Fs2.jpg", fretSrc: "assets/images/Fingerboard/Fs2.jpg",         answer: "F#",   audio: "assets/audio/Note Name Audio Fs2.wav" },
+        { src: "assets/images/Staff/G.jpg",   fretSrc: "assets/images/Fingerboard/G.jpg",           answer: "G",    audio: "assets/audio/Note Name Audio Low G.wav" },
+        { src: "assets/images/Staff/G1.jpg",  fretSrc: "assets/images/Fingerboard/G1.tif",          answer: "G",    audio: "assets/audio/Note Name Audio G1.wav" },
+        { src: "assets/images/Staff/G2.jpg",  fretSrc: "assets/images/Fingerboard/G2.jpg",          answer: "G",    audio: "assets/audio/Note Name Audio G2.wav" },
+        { src: "assets/images/Staff/Gs.jpg",  fretSrc: "assets/images/Fingerboard/Gs.jpg",          answer: "G#",   audio: "assets/audio/Note Name Audio Low Gs.wav" },
+        { src: "assets/images/Staff/Gs1.jpg", fretSrc: "assets/images/Fingerboard/Gs1.jpg",         answer: "G#",   audio: "assets/audio/Note Name Audio Gs1-Ab1.wav" },
+        { src: "assets/images/Staff/Gs2.jpg", fretSrc: "assets/images/Fingerboard/Gs2.jpg",         answer: "G#",   audio: "assets/audio/Note Name Audio Gs2-Ab2.wav" },
     ];
     
 
@@ -214,7 +239,6 @@
             button.onclick = () => checkAnswerAccidental(button, currentImage);
             optionsContainer.appendChild(button);
         });
-        
         enableAccidentals(false);
     }
 
