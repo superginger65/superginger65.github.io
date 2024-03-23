@@ -87,29 +87,16 @@
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
-        { src: "assets/images/D-Bb-C.jpg", fretSrc: "assets/images/Triad D-Bb-C.jpg", answer: "D-B♭-C", audio: "assets/audio/D-Bb-C.mp3" },
-        { src: "assets/images/D-Bb-D.jpg", fretSrc: "assets/images/Triad D-Bb-D.jpg", answer: "D-B♭-D", audio: "assets/audio/D-Bb-D.mp3" },
-        { src: "assets/images/D-Gs-B.jpg", fretSrc: "assets/images/Triad D-Gs-B.jpg", answer: "D-G#-B", audio: "assets/audio/D-Gs-B.mp3" },
-        { src: "assets/images/D-Gs-C.jpg", fretSrc: "assets/images/Triad D-Gs-C.jpg", answer: "D-G#-C", audio: "assets/audio/D-Gs-C.mp3" },
-        { src: "assets/images/D-Gs-D.jpg", fretSrc: "assets/images/Triad D-Gs-D.jpg", answer: "D-G#-D", audio: "assets/audio/D-Gs-D.mp3" },
-        { src: "assets/images/Ds-A-B.jpg", fretSrc: "assets/images/Triad Ds-A-B.jpg", answer: "D#-A-B", audio: "assets/audio/Ds-A-B.mp3" },
-        { src: "assets/images/Ds-A-C.jpg", fretSrc: "assets/images/Triad Ds-A-C.jpg", answer: "D#-A-C", audio: "assets/audio/Ds-A-C.mp3" },
-        { src: "assets/images/Ds-G-B.jpg", fretSrc: "assets/images/Triad Ds-G-B.jpg", answer: "D#-G-B", audio: "assets/audio/Ds-G-B.mp3" },
-        { src: "assets/images/E-Bb-C.jpg", fretSrc: "assets/images/Triad E-Bb-C.jpg", answer: "E-B♭-C", audio: "assets/audio/E-Bb-C.mp3" },
-        { src: "assets/images/E-Bb-D.jpg", fretSrc: "assets/images/Triad E-Bb-D.jpg", answer: "E-B♭-D", audio: "assets/audio/E-Bb-D.mp3" },
-        { src: "assets/images/E-Gs-B.jpg", fretSrc: "assets/images/Triad E-Gs-B.jpg", answer: "E-G#-B", audio: "assets/audio/E-Gs-B.mp3" },
-        { src: "assets/images/E-Gs-D.jpg", fretSrc: "assets/images/Triad E-Gs-D.jpg", answer: "E-G#-D", audio: "assets/audio/E-Gs-D.mp3" },
-        { src: "assets/images/Eb-A-C.jpg", fretSrc: "assets/images/Triad Eb-A-C.jpg", answer: "E♭-A-C", audio: "assets/audio/Eb-A-C.mp3" },
-        { src: "assets/images/Eb-G-C.jpg", fretSrc: "assets/images/Triad Eb-G-C.jpg", answer: "E♭-G-C", audio: "assets/audio/Eb-G-C.mp3" },
-        { src: "assets/images/F-Bb-C.jpg", fretSrc: "assets/images/Triad F-Bb-C.jpg", answer: "F-B♭-C", audio: "assets/audio/F-Bb-C.mp3" },
-        { src: "assets/images/F-Bb-D.jpg", fretSrc: "assets/images/Triad F-Bb-D.jpg", answer: "F-B♭-D", audio: "assets/audio/F-Bb-D.mp3" },
-        { src: "assets/images/F-Gs-B.jpg", fretSrc: "assets/images/Triad F-Gs-B.jpg", answer: "F-G#-B", audio: "assets/audio/F-Gs-B.mp3" },
-        { src: "assets/images/F-Gs-D.jpg", fretSrc: "assets/images/Triad F-Gs-D.jpg", answer: "F-G#-D", audio: "assets/audio/F-Gs-D.mp3" },
+        { src: "assets/images/A.jpg", fretSrc: "assets/images/fretA.jpg", answer: "A", audio: "assets/audio/Note Name Audio Low A.mp3" },
+        { src: "assets/images/B.jpg", fretSrc: "assets/images/fretB.jpg", answer: "B", audio: "assets/audio/Note Name Audio Low B.mp3" },
+        { src: "assets/images/C1.jpg", fretSrc: "assets/images/fretC1.jpg", answer: "C", audio: "assets/audio/Note Name Audio Low C.mp3" },
+        { src: "assets/images/E.jpg", fretSrc: "assets/images/fretE.jpg", answer: "E", audio: "assets/audio/Note Name Audio Low E.mp3" },
+        { src: "assets/images/F.jpg", fretSrc: "assets/images/fretF.jpg", answer: "F", audio: "assets/audio/Note Name Audio Low F.mp3" },
+        { src: "assets/images/G.jpg", fretSrc: "assets/images/fretG.jpg", answer: "G", audio: "assets/audio/Note Name Audio Low G.mp3" },
     ];
     
 
     let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
-    let buttonAccidentals = ["#", "♭"];
 
     let count = 0;
     let incorrectCount = 0;
@@ -121,7 +108,7 @@
 
     
     function shuffleOrder() {
-        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+        const numbers = [0, 1, 2, 3, 4, 5];
         for (let i = numbers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
@@ -206,16 +193,6 @@
                 optionsContainer.appendChild(button);
             }
         });
-        optionsContainer.appendChild(document.createElement("br"));
-        buttonAccidentals.forEach(option => {
-            let button = document.createElement("button");
-            button.textContent = option;
-            button.classList.add("accidental");
-            button.onclick = () => checkAnswerAccidental(button, currentImage);
-            optionsContainer.appendChild(button);
-        });
-        
-        enableAccidentals(false);
     }
 
     async function checkAnswer(button, isCorrect, currentImage) {
