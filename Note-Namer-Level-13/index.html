@@ -11,8 +11,8 @@
         text-align: center;
     }
     img {
-        max-width: 87%;
-        max-height: 65%;
+        max-width: 33.4%;
+        max-height: 100%;
     }
     img.fret {
         max-width: 33.4%;
@@ -88,9 +88,9 @@
 </style>
 </head>
 <body>
-<div>
+<!-- <div>
     <button id="switchImageButton", title="Fretboard", onclick="switchimages()">Fretboard</button>
-</div>
+</div> -->
 <img id="quizImage" src="" alt="Quiz Image">
 <div id="options">
     <!-- Buttons will be generated dynamically -->
@@ -160,7 +160,7 @@
 
     
     function shuffleOrder() {
-        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
         for (let i = numbers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
@@ -223,14 +223,16 @@
         const currentImage = images[imageOrder[count]];
         //shuffleButtonOptions(buttonOptions);
 
-        if (switchImageButton.textContent === "Fretboard") {
-            document.getElementById("quizImage").classList.remove("fret");
-            document.getElementById("quizImage").src = currentImage.src;
-        }
-        else {
-            document.getElementById("quizImage").classList.add("fret");
-            document.getElementById("quizImage").src = currentImage.fretSrc;
-        }
+        document.getElementById("quizImage").classList.remove("fret");
+        document.getElementById("quizImage").src = currentImage.src;
+        // if (switchImageButton.textContent === "Fretboard") {
+        //     document.getElementById("quizImage").classList.remove("fret");
+        //     document.getElementById("quizImage").src = currentImage.src;
+        // }
+        // else {
+        //     document.getElementById("quizImage").classList.add("fret");
+        //     document.getElementById("quizImage").src = currentImage.fretSrc;
+        // }
 
         const optionsContainer = document.getElementById("options");
         optionsContainer.innerHTML = "";
@@ -261,8 +263,17 @@
             button.onclick = () => checkAnswerAccidental(button, currentImage);
             optionsContainer.appendChild(button);
         });
+        optionsContainer.appendChild(document.createElement("br"));
+        buttonColorings.forEach(option => {
+            let button = document.createElement("button");
+            button.textContent = option;
+            button.classList.add("accidental");
+            button.onclick = () => checkAnswerAccidental(button, currentImage);
+            optionsContainer.appendChild(button);
+        });
         
         enableAccidentals(false);
+        enableColorings(false);
     }
 
     async function checkAnswer(button, isCorrect, currentImage) {
@@ -349,6 +360,24 @@
         else {
             buttons.forEach(button => {
                 if (button.textContent === "#" || button.textContent === "♭") {
+                    button.disabled = true;
+                }
+            });
+        }
+    }
+
+    async function enableColorings(isEnabled) {
+        const buttons = document.querySelectorAll("#options button");
+        if (isEnabled) {
+            buttons.forEach(button => {
+                if (button.textContent === "7th" || button.textContent === "m7" || button.textContent === "o7" || button.textContent === "9" || button.textContent === "sus") {
+                    button.disabled = false;
+                }
+            });
+        }
+        else {
+            buttons.forEach(button => {
+                if (button.textContent === "7th" || button.textContent === "m7" || button.textContent === "o7" || button.textContent === "9" || button.textContent === "sus") {
                     button.disabled = true;
                 }
             });
