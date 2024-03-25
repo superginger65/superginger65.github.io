@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Note-Namer Level 6</title>
+<title>Note-Namer Level 11</title>
 <style>
-    
     body {
         margin: auto;
         font-family: Arial, sans-serif;
@@ -97,7 +96,7 @@
     ];
 
     let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
-    let buttonModifiers = ["#", "♭"]
+    let buttonAccidentals = ["#", "♭"]
 
     let count = 0;
     let incorrectCount = 0;
@@ -110,11 +109,11 @@
     
     function shuffleOrder() {
     const numbers = [0, 1, 2, 3, 4, 5];
-    for (let i = numbers.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
-    }
-    return numbers;
+        for (let i = numbers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+        }
+        return numbers;
     }
 
     function getButtonOptions(answer) {
@@ -194,15 +193,14 @@
                 optionsContainer.appendChild(button);
             }
         });
-        optionsContainer.appendChild(document.createElement("br"))
-        buttonModifiers.forEach(option => {
+        optionsContainer.appendChild(document.createElement("br"));
+        buttonAccidentals.forEach(option => {
             let button = document.createElement("button");
             button.textContent = option;
             button.classList.add("accidental");
-            button.disabled = true;
             button.onclick = () => checkAnswerAccidental(button, currentImage);
             optionsContainer.appendChild(button);
-        })
+        });
     }
 
     async function checkAnswer(button, isCorrect, currentImage) {
@@ -224,12 +222,11 @@
                 button.classList.add("correct");
                 enableAccidentals(true);
             }
-            else {    
-                button.disabled = true;
+            else{    
                 if (button.textContent === currentImage.answer.charAt(voicing)) {
                     voicing += 2;
                     button.classList.add("correct");
-                    await new Promise(r => setTimeout(r, 370));
+                    await new Promise(r => setTimeout(r, 450));
                     button.classList.remove("correct");
                     if (voicing > currentImage.answer.length - 1) {
                         checkAnswer(button, true, currentImage);
@@ -245,10 +242,10 @@
 
     async function checkAnswerAccidental(button, currentImage) {
         if (button.textContent === currentImage.answer.charAt(voicing+1))  {
-            voicing += voicing + 3;
+            voicing += 3;
             button.classList.add("correct");
             button.disabled = true;
-            await new Promise(r => setTimeout(r, 370));
+            await new Promise(r => setTimeout(r, 450));
             button.classList.remove("correct");
             button.disabled = false;
             if (voicing > currentImage.answer.length - 1) {
