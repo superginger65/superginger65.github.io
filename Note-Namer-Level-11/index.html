@@ -89,14 +89,17 @@
     const images = [
         { src: "assets/images/A.jpg", fretSrc: "assets/images/fretA.jpg", answer: "A", audio: "assets/audio/Note Name Audio Low A.mp3" },
         { src: "assets/images/B.jpg", fretSrc: "assets/images/fretB.jpg", answer: "B", audio: "assets/audio/Note Name Audio Low B.mp3" },
+        { src: "assets/images/Bb.jpg", fretSrc: "assets/images/fretBb.jpg", answer: "B♭", audio: "assets/audio/Note Name Audio Low Bb.mp3" },
         { src: "assets/images/C1.jpg", fretSrc: "assets/images/fretC1.jpg", answer: "C", audio: "assets/audio/Note Name Audio Low C.mp3" },
         { src: "assets/images/E.jpg", fretSrc: "assets/images/fretE.jpg", answer: "E", audio: "assets/audio/Note Name Audio Low E.mp3" },
         { src: "assets/images/F.jpg", fretSrc: "assets/images/fretF.jpg", answer: "F", audio: "assets/audio/Note Name Audio Low F.mp3" },
+        { src: "assets/images/Fs.jpg", fretSrc: "assets/images/FretLowFs.jpg", answer: "F#", audio: "assets/audio/Note Name Audio Low Fs.wav" },
         { src: "assets/images/G.jpg", fretSrc: "assets/images/fretG.jpg", answer: "G", audio: "assets/audio/Note Name Audio Low G.mp3" },
     ];
     
 
     let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
+    let buttonAccidentals = ["#", "♭"];
 
     let count = 0;
     let incorrectCount = 0;
@@ -192,6 +195,14 @@
                 button.onclick = () => checkAnswer(button, option === currentImage.answer, currentImage);
                 optionsContainer.appendChild(button);
             }
+        });
+        optionsContainer.appendChild(document.createElement("br"));
+        buttonAccidentals.forEach(option => {
+            let button = document.createElement("button");
+            button.textContent = option;
+            button.classList.add("accidental");
+            button.onclick = () => checkAnswerAccidental(button, currentImage);
+            optionsContainer.appendChild(button);
         });
     }
 
