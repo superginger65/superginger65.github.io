@@ -34,6 +34,13 @@
         font-size: 150%;
 
     }
+    b.answer {
+        font-size: 150%;
+        top: -.1rem;
+        margin-left: -1.5rem;
+        position: absolute;
+        color: green;
+    }
     button {
         padding: 1% 2%;
         margin: 1%;
@@ -51,8 +58,8 @@
     button:disabled,
     button[disabled]{
     border: none;
-    background-color: #cccccc;
-    color: #666666;
+    /* background-color: #cccccc; 
+     color: #666666; */
     }
     button.correct {
         background-color: green !important;
@@ -90,15 +97,15 @@
     button.coloring:hover {
         background-color: #6f9cf5;
     }
-    button.quality:disabled {
+    /*button.quality:disabled {
         background-color: #cccccc;
     }
     button.coloring:disabled {
         background-color: #cccccc;
-    }
+    } */
     button.skip {
         position: absolute;
-        top: 20rem;
+        top: 17rem;
         margin-left: 5rem;
         font-size: 150%;
     }
@@ -124,9 +131,13 @@
 </style>
 </head>
 <body>
-    <div>
+    <!-- <div>
         <button id="answerButton", title="Answer", onmouseenter="showAnswer(true)", onmouseleave="showAnswer(false)">Answer</button>
+    </div> -->
     <div>
+        <b id="answer", class="answer"> </b>
+    </div>
+    
 <!-- <div>
     <button id="switchImageButton", title="Fretboard", onclick="switchimages()">Fretboard</button>
 </div> -->
@@ -139,54 +150,54 @@
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
-        { src: "assets/images/Strings 123/A 7-123.jpg",             quality: "maj-m7",      answer: "A",    audio: "assets/audio/Strings 123/A 7-123.mp3" },
+        { src: "assets/images/Strings 123/A 7-123.jpg",             quality: "7",           answer: "A",    audio: "assets/audio/Strings 123/A 7-123.mp3" },
         { src: "assets/images/Strings 123/A majo-123.jpg",          quality: "maj",         answer: "A",    audio: "assets/audio/Strings 123/A maj-123.mp3" },
         { src: "assets/images/Strings 123/A min-123.jpg",           quality: "min",         answer: "A",    audio: "assets/audio/Strings 123/A min-123.mp3" },
-        { src: "assets/images/Strings 123/A min7-123.jpg",          quality: "min-m7",      answer: "A",    audio: "assets/audio/Strings 123/A min7-123.mp3" },
+        { src: "assets/images/Strings 123/A min7-123.jpg",          quality: "m7",          answer: "A",    audio: "assets/audio/Strings 123/A min7-123.mp3" },
         { src: "assets/images/Strings 123/A sus-123.jpg",           quality: "sus",         answer: "A",    audio: "assets/audio/Strings 123/Asus-123.mp3" },
         { src: "assets/images/Strings 123/As dim-123.jpg",          quality: "dim",         answer: "A#",   audio: "assets/audio/Strings 123/As dim-123.mp3" },
-        { src: "assets/images/Strings 123/B half dim-123.jpg",      quality: "dim-m7",      answer: "B",    audio: "assets/audio/Strings 123/B half dim-123.mp3" },
+        { src: "assets/images/Strings 123/B half dim-123.jpg",      quality: "dim",         answer: "B",    audio: "assets/audio/Strings 123/B half dim-123.mp3" },
         { src: "assets/images/Strings 123/Bb maj-123.jpg",          quality: "maj",         answer: "B♭",   audio: "assets/audio/Strings 123/Bb maj-123.mp3" },
-        { src: "assets/images/Strings 123/C 7-123-1.jpg",           quality: "maj-m7",      answer: "C",    audio: "assets/audio/Strings 123/C7-123-1.mp3" },
-        { src: "assets/images/Strings 123/C 7-123-2.jpg",           quality: "maj-m7",      answer: "C",    audio: "assets/audio/Strings 123/C7-123-2.mp3" },
+        { src: "assets/images/Strings 123/C 7-123-1.jpg",           quality: "7",           answer: "C",    audio: "assets/audio/Strings 123/C7-123-1.mp3" },
+        { src: "assets/images/Strings 123/C 7-123-2.jpg",           quality: "7",           answer: "C",    audio: "assets/audio/Strings 123/C7-123-2.mp3" },
         { src: "assets/images/Strings 123/C maj-123.jpg",           quality: "maj",         answer: "C",    audio: "assets/audio/Strings 123/C maj-123.mp3" },
         { src: "assets/images/Strings 123/D maj-123.jpg",           quality: "maj",         answer: "D",    audio: "assets/audio/Strings 123/D maj-123.mp3" },
         { src: "assets/images/Strings 123/D min-123.jpg",           quality: "min",         answer: "D",    audio: "assets/audio/Strings 123/D min-123.mp3" },
         { src: "assets/images/Strings 123/Dsus-123.jpg",            quality: "sus",         answer: "D",    audio: "assets/audio/Strings 123/D sus-123.mp3" },
-        { src: "assets/images/Strings 123/E 7-123.jpg",             quality: "maj-m7",      answer: "E",    audio: "assets/audio/Strings 123/E7-123.mp3" },
+        { src: "assets/images/Strings 123/E 7-123.jpg",             quality: "7",           answer: "E",    audio: "assets/audio/Strings 123/E7-123.mp3" },
         { src: "assets/images/Strings 123/E MAJ-123.jpg",           quality: "maj",         answer: "E",    audio: "assets/audio/Strings 123/E maj-123.mp3" },
         { src: "assets/images/Strings 123/E min-123.jpg",           quality: "min",         answer: "E",    audio: "assets/audio/Strings 123/E min-123.mp3" },
         { src: "assets/images/Strings 123/G maj-123-1.jpg",         quality: "maj",         answer: "G",    audio: "assets/audio/Strings 123/G maj-123.mp3" },
         { src: "assets/images/Strings 123/G maj-123-2.jpg",         quality: "maj",         answer: "G",    audio: "assets/audio/Strings 123/G maj-123-2.mp3" },
         { src: "assets/images/Strings 123/G min-123.jpg",           quality: "min",         answer: "G",    audio: "assets/audio/Strings 123/G min-123.mp3" },
-        { src: "assets/images/Strings 123/G7-123-1.jpg",            quality: "maj-m7",      answer: "G",    audio: "assets/audio/Strings 123/G7-123-1.mp3" },
-        { src: "assets/images/Strings 123/G7-123-2.jpg",            quality: "maj-m7",      answer: "G",    audio: "assets/audio/Strings 123/G7-123-2.mp3" },
-        { src: "assets/images/Strings 123/Gs FULLY dim 7-123.jpg",  quality: "dim-o7",      answer: "G#",   audio: "assets/audio/Strings 123/Gs fully dim-123.mp3" },
+        { src: "assets/images/Strings 123/G7-123-1.jpg",            quality: "7",           answer: "G",    audio: "assets/audio/Strings 123/G7-123-1.mp3" },
+        { src: "assets/images/Strings 123/G7-123-2.jpg",            quality: "7",           answer: "G",    audio: "assets/audio/Strings 123/G7-123-2.mp3" },
+        { src: "assets/images/Strings 123/Gs FULLY dim 7-123.jpg",  quality: "o7",          answer: "G#",   audio: "assets/audio/Strings 123/Gs fully dim-123.mp3" },
         { src: "assets/images/Strings 432/A min.jpg",               quality: "min",         answer: "A",    audio: "assets/audio/Strings 432/A min.mp3" },
         { src: "assets/images/Strings 432/A sus.jpg",               quality: "sus",         answer: "A",    audio: "assets/audio/Strings 432/A sus.mp3" },
-        { src: "assets/images/Strings 432/A9.jpg",                  quality: "maj-9",       answer: "A",    audio: "assets/audio/Strings 432/A9.mp3" },
-        { src: "assets/images/Strings 432/B7.jpg",                  quality: "maj-m7",      answer: "B",    audio: "assets/audio/Strings 432/B7.mp3" },
+        { src: "assets/images/Strings 432/A9.jpg",                  quality: "9",           answer: "A",    audio: "assets/audio/Strings 432/A9.mp3" },
+        { src: "assets/images/Strings 432/B7.jpg",                  quality: "7",           answer: "B",    audio: "assets/audio/Strings 432/B7.mp3" },
         { src: "assets/images/Strings 432/Bb maj.jpg",              quality: "maj",         answer: "B♭",   audio: "assets/audio/Strings 432/Bb maj.mp3" },
         { src: "assets/images/Strings 432/C maj.jpg",               quality: "maj",         answer: "C",    audio: "assets/audio/Strings 432/C maj.mp3" },
-        { src: "assets/images/Strings 432/C7.jpg",                  quality: "maj-m7",      answer: "C",    audio: "assets/audio/Strings 432/C7.mp3" },
+        { src: "assets/images/Strings 432/C7.jpg",                  quality: "7",           answer: "C",    audio: "assets/audio/Strings 432/C7.mp3" },
         { src: "assets/images/Strings 432/Cm.jpg",                  quality: "min",         answer: "C",    audio: "assets/audio/Strings 432/Cm.mp3" },
         { src: "assets/images/Strings 432/D min.mp3",               quality: "min",         answer: "D",    audio: "assets/audio/Strings 432/D min.mp3" },
-        { src: "assets/images/Strings 432/Ds fully diminished.jpg", quality: "dim-o7",      answer: "D#",   audio: "assets/audio/Strings 432/Ds Diminished 7.mp3" },
-        { src: "assets/images/Strings 432/D7.jpg",                  quality: "maj-m7",      answer: "D",    audio: "assets/audio/Strings 432/D7.mp3" },
-        { src: "assets/images/Strings 432/E7.jpg",                  quality: "maj-m7",      answer: "E",    audio: "assets/audio/Strings 432/E7.mp3" },
-        { src: "assets/images/Strings 432/Em7.jpg",                 quality: "min-m7",      answer: "E",    audio: "assets/audio/Strings 432/E m7.mp3" },
+        { src: "assets/images/Strings 432/Ds fully diminished.jpg", quality: "o7",          answer: "D#",   audio: "assets/audio/Strings 432/Ds Diminished 7.mp3" },
+        { src: "assets/images/Strings 432/D7.jpg",                  quality: "7",           answer: "D",    audio: "assets/audio/Strings 432/D7.mp3" },
+        { src: "assets/images/Strings 432/E7.jpg",                  quality: "7",           answer: "E",    audio: "assets/audio/Strings 432/E7.mp3" },
+        { src: "assets/images/Strings 432/Em7.jpg",                 quality: "m7",          answer: "E",    audio: "assets/audio/Strings 432/E m7.mp3" },
         { src: "assets/images/Strings 432/Emaj.jpg",                quality: "maj",         answer: "E",    audio: "assets/audio/Strings 432/E maj.mp3" },
         { src: "assets/images/Strings 432/Emin.jpg",                quality: "min",         answer: "E",    audio: "assets/audio/Strings 432/E min.mp3" },
         { src: "assets/images/Strings 432/G maj.jpg",               quality: "maj",         answer: "G ",   audio: "assets/audio/Strings 432/G maj.mp3" },
-        { src: "assets/images/Strings 432/Gs fully diminished.jpg", quality: "dim-o7",      answer: "G#",   audio: "assets/audio/Strings 432/Gs dim 7.mp3" },
+        { src: "assets/images/Strings 432/Gs fully diminished.jpg", quality: "o7",          answer: "G#",   audio: "assets/audio/Strings 432/Gs dim 7.mp3" },
         { src: "assets/images/Strings 432/Ga.jpg",                  quality: "aug",         answer: "G",    audio: "assets/audio/Strings 432/Ga.mp3" },
-        { src: "assets/images/Strings 432/G7-1.jpg",                quality: "maj-m7",      answer: "G",    audio: "assets/audio/Strings 432/G7-1.mp3" },
-        { src: "assets/images/Strings 432/G7-2.jpg",                quality: "maj-m7",      answer: "G",    audio: "assets/audio/Strings 432/G7-2.mp3" },
+        { src: "assets/images/Strings 432/G7-1.jpg",                quality: "m7",          answer: "G",    audio: "assets/audio/Strings 432/G7-1.mp3" },
+        { src: "assets/images/Strings 432/G7-2.jpg",                quality: "m7",          answer: "G",    audio: "assets/audio/Strings 432/G7-2.mp3" },
     ];  
     let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
     let buttonAccidentals = ["#", "♭"];
     let buttonQualities = ["maj", "min", "dim", "aug"];
-    let buttonColorings = ["M7", "m7", "o7", "9", "sus"]
+    let buttonColorings = ["7", "m7", "o7", "9", "sus"]
 
     let count = 0;
     let incorrectCount = 0;
@@ -255,6 +266,8 @@
             count = 0;
             imageOrder = shuffleOrder();
         }
+        
+        document.querySelector("#answer").textContent = " ";
 
         let currentImage = images[imageOrder[count]];
         //shuffleButtonOptions(buttonOptions);
@@ -312,14 +325,14 @@
         buttonColorings.forEach(option => {
             let button = document.createElement("button");
             button.textContent = option;
-            button.classList.add("coloring");
-            button.onclick = () => checkAnswerColoring(button, currentImage);
+            button.classList.add("quality");
+            button.onclick = () => checkAnswerQuality(button, currentImage);
             optionsContainer.appendChild(button);
         });
         
         enableAccidentals(false);
         enableQualities(false);
-        enableColorings(false);
+        // enableColorings(false);
     }
 
     async function checkAnswer(button, isCorrect, currentImage) {
@@ -330,13 +343,14 @@
             count++;
             correctCount++;
             questionCount++;
+            document.querySelector("#answer").textContent = currentImage.answer + " " + currentImage.quality;
             score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
             await new Promise(r => setTimeout(r, 1000));
             displayQuestion();
         }
         else {
             if (currentImage.quality.includes("sus")) {
-                enableColorings(true);
+                // enableColorings(true);
                 enableQualities(true);
             }
             if (!currentImage.answer.includes ("#") && !currentImage.answer.includes("♭")) {
@@ -370,26 +384,12 @@
     }
 
     async function checkAnswerQuality(button, currentImage) {
-        if (currentImage.quality.includes("-")) {
-            if (currentImage.quality === "sus") {
-                enableColorings(true);
-            }
-            if (button.textContent === currentImage.quality.substring(0, currentImage.quality.indexOf("-"))) {
-                button.classList.add("correct");
-                enableColorings(true);
-            }
-            else {
-                incorrectAnswer(button);
-            }
+        if (button.textContent === currentImage.quality.substring(currentImage.quality.indexOf("-") + 1)) {
+            button.classList.add("correct");
+            checkAnswer(button, true, currentImage);
         }
         else {
-            if (button.textContent === currentImage.quality) {
-                button.classList.add("correct");
-                checkAnswer(button, true, currentImage);
-            }
-            else {
-                incorrectAnswer(button);
-            }
+            incorrectAnswer(button);
         }
     }
 
@@ -446,23 +446,23 @@
         }
     }
 
-    async function enableColorings(isEnabled) {
-        let buttons = document.querySelectorAll("#options button");
-        if (isEnabled) {
-            buttons.forEach(button => {
-                if (button.classList.contains("coloring")) {
-                    button.disabled = false;
-                }
-            });
-        }
-        else {
-            buttons.forEach(button => {
-                if (button.classList.contains("coloring")) {
-                    button.disabled = true;
-                }
-            });
-        }
-    }
+    // async function enableColorings(isEnabled) {
+    //     let buttons = document.querySelectorAll("#options button");
+    //     if (isEnabled) {
+    //         buttons.forEach(button => {
+    //             if (button.classList.contains("coloring")) {
+    //                 button.disabled = false;
+    //             }
+    //         });
+    //     }
+    //     else {
+    //         buttons.forEach(button => {
+    //             if (button.classList.contains("coloring")) {
+    //                 button.disabled = true;
+    //             }
+    //         });
+    //     }
+    // }
 
     async function showAnswer(isHovered) {
         if (isHovered) {

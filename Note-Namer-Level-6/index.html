@@ -208,6 +208,7 @@
             button.onclick = () => checkAnswerAccidental(button, currentImage);
             optionsContainer.appendChild(button);
         });
+        enableAccidentals(false);
     }
 
     async function checkAnswer(button, isCorrect, currentImage) {
