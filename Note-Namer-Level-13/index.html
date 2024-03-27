@@ -88,14 +88,11 @@
         background-color: #6f9cf5;
     }
     button.coloring {
-        margin-left: 1.8%;
-        margin-right: 1.8%;
-        min-height: 2.3rem;
-        min-width: 2.4rem;
-        background-color: #5481e8;
+        top: -10rem;
+        margin-left: 2.2rem;
     }
     button.coloring:hover {
-        background-color: #6f9cf5;
+        /* background-color: #6f9cf5; */
     }
     /*button.quality:disabled {
         background-color: #cccccc;
@@ -328,6 +325,7 @@
             let button = document.createElement("button");
             button.textContent = option;
             button.classList.add("quality");
+            button.classList.add("coloring");
             button.onclick = () => checkAnswerQuality(button, currentImage);
             optionsContainer.appendChild(button);
         });
