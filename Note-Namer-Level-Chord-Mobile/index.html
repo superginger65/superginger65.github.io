@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Note-Namer Level 13</title>
+<style>
+    body {
+        margin: auto;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        width: 65%;
+        height: 65%;
+    }
+    img {
+        max-width: 33.4%;
+        max-height: 100%;
+    }
+    img.fret {
+        max-width: 33.4%;
+        max-height: 100%;
+    }
+    b.chord {
+        margin-left: -17.6vw;
+        margin-right: 0vw;
+        font-size: 110%;
+    }
+    b.accidental {
+        margin-left: -29vw;
+        margin-right: 6vw;
+        font-size: 110%;
+    }
+    b.quality {
+        margin-left: -18.7vw;
+        margin-right: 0rem;
+        font-size: 110%;
+
+    }
+    b.answer {
+        font-size: 150%;
+        top: .3rem;
+        margin-left: -1.5rem;
+        position: absolute;
+        color: green;
+    }
+    button {
+        padding: 1% 2%;
+        margin: 1%;
+        font-size: 120%;
+        cursor: pointer;
+        border: none;
+        border-radius: 45%;
+        color: white;
+        background-color: #bc4c01;
+        filter: drop-shadow(2px 2px 4px #414040);
+    }
+    button:hover {
+        background-color: #ff6a00;
+    }
+    button:disabled,
+    button[disabled]{
+    border: none;
+    /* background-color: #cccccc; 
+     color: #666666; */
+    }
+    button.correct {
+        background-color: green !important;
+        color: white;
+    }
+    button.incorrect {
+        background-color: red !important;
+        color: white;
+        animation: shake 0.2s ease-in-out 0s 2;
+        box-shadow: 0 0 0.6rem #ff0000;
+    }
+    button.accidental {
+        margin-left: 1.8%;
+        margin-right: 1.8%;
+        min-height: 2.5rem;
+        min-width: 2.5rem;
+    }
+    button.quality {
+        margin-left: 1.8%;
+        margin-right: 1.8%;
+        min-height: 2.3rem;
+        min-width: 2.4rem;
+        background-color: #5481e8;
+    }
+    button.quality:hover {
+        background-color: #6f9cf5;
+    }
+    button.coloring {
+        position: relative;
+        top: -3vh;
+        margin-left: 3.5vw;
+    }
+    button.coloring:hover {
+        /* background-color: #6f9cf5; */
+    }
+    /*button.quality:disabled {
+        background-color: #cccccc;
+    }
+    button.coloring:disabled {
+        background-color: #cccccc;
+    } */
+    button.skip {
+        position: absolute;
+        top: 25vh;
+        margin-left: 5rem;
+        font-size: 120%;
+    }
+    @keyframes shake {
+        0% {
+            margin-right: 0%;
+        }
+        25% {
+            margin-right: -0.1%;
+            margin-left:   0.1%;
+        }
+        75% {
+            margin-right: 0.1%;
+            margin-left: -0.1%;
+        }
+        100% {
+            margin-right: 0%;
+        }
+    }
+    
+    
+
+</style>
+</head>
+<body style="overflow: auto; height: 100vh; width: 100vw;">
+    
+    <!-- <div>
+        <button id="answerButton", title="Answer", onmouseenter="showAnswer(true)", onmouseleave="showAnswer(false)">Answer</button>
+    </div> -->
+    <div>
+        <br><br>
+        <b id="answer", class="answer"> </b>
+    </div>
+    
+<!-- <div>
+    <button id="switchImageButton", title="Fretboard", onclick="switchimages()">Fretboard</button>
+</div> -->
+<img id="quizImage" src="" alt="Quiz Image">
+<button id="skipButton", class="skip", title="Skip", onclick="skipQuestion()">Skip</button>
+<div id="options">
+    <!-- Buttons will be generated dynamically -->
+</div>
+<audio id="audio" controls style="display: none;"></audio>
+<script>
+    const images = [
+        { src: "assets/images/Strings 123/A 7-123.jpg",             quality: "7",           answer: "A",    audio: "assets/audio/Strings 123/A 7-123.mp3" },
+        { src: "assets/images/Strings 123/A majo-123.jpg",          quality: "maj",         answer: "A",    audio: "assets/audio/Strings 123/A maj-123.mp3" },
+        { src: "assets/images/Strings 123/A min-123.jpg",           quality: "min",         answer: "A",    audio: "assets/audio/Strings 123/A min-123.mp3" },
+        { src: "assets/images/Strings 123/A min7-123.jpg",          quality: "m7",          answer: "A",    audio: "assets/audio/Strings 123/A min7-123.mp3" },
+        { src: "assets/images/Strings 123/A sus-123.jpg",           quality: "sus",         answer: "A",    audio: "assets/audio/Strings 123/Asus-123.mp3" },
+        { src: "assets/images/Strings 123/As dim-123.jpg",          quality: "dim",         answer: "A#",   audio: "assets/audio/Strings 123/As dim-123.mp3" },
+        { src: "assets/images/Strings 123/B half dim-123.jpg",      quality: "o7",         answer: "B",    audio: "assets/audio/Strings 123/B half dim-123.mp3" },
+        { src: "assets/images/Strings 123/Bb maj-123.jpg",          quality: "maj",         answer: "B♭",   audio: "assets/audio/Strings 123/Bb maj-123.mp3" },
+        { src: "assets/images/Strings 123/C 7-123-1.jpg",           quality: "7",           answer: "C",    audio: "assets/audio/Strings 123/C7-123-1.mp3" },
+        { src: "assets/images/Strings 123/C 7-123-2.jpg",           quality: "7",           answer: "C",    audio: "assets/audio/Strings 123/C7-123-2.mp3" },
+        { src: "assets/images/Strings 123/C maj-123.jpg",           quality: "maj",         answer: "C",    audio: "assets/audio/Strings 123/C maj-123.mp3" },
+        { src: "assets/images/Strings 123/D maj-123.jpg",           quality: "maj",         answer: "D",    audio: "assets/audio/Strings 123/D maj-123.mp3" },
+        { src: "assets/images/Strings 123/D min-123.jpg",           quality: "min",         answer: "D",    audio: "assets/audio/Strings 123/D min-123.mp3" },
+        { src: "assets/images/Strings 123/Dsus-123.jpg",            quality: "sus",         answer: "D",    audio: "assets/audio/Strings 123/D sus-123.mp3" },
+        { src: "assets/images/Strings 123/E 7-123.jpg",             quality: "7",           answer: "E",    audio: "assets/audio/Strings 123/E7-123.mp3" },
+        { src: "assets/images/Strings 123/E MAJ-123.jpg",           quality: "maj",         answer: "E",    audio: "assets/audio/Strings 123/E maj-123.mp3" },
+        { src: "assets/images/Strings 123/E min-123.jpg",           quality: "min",         answer: "E",    audio: "assets/audio/Strings 123/E min-123.mp3" },
+        { src: "assets/images/Strings 123/G maj-123-1.jpg",         quality: "maj",         answer: "G",    audio: "assets/audio/Strings 123/G maj-123-2.mp3" },
+        { src: "assets/images/Strings 123/G maj-123-2.jpg",         quality: "maj",         answer: "G",    audio: "assets/audio/Strings 123/G maj-123.mp3" },
+        { src: "assets/images/Strings 123/G min-123.jpg",           quality: "min",         answer: "G",    audio: "assets/audio/Strings 123/G min-123.mp3" },
+        { src: "assets/images/Strings 123/G7-123-1.jpg",            quality: "7",           answer: "G",    audio: "assets/audio/Strings 123/G7-123-1.mp3" },
+        { src: "assets/images/Strings 123/G7-123-2.jpg",            quality: "7",           answer: "G",    audio: "assets/audio/Strings 123/G7-123-2.mp3" },
+        { src: "assets/images/Strings 123/Gs FULLY dim 7-123.jpg",  quality: "o7",          answer: "G#",   audio: "assets/audio/Strings 123/Gs fully dim-123.mp3" },
+        { src: "assets/images/Strings 432/A min.jpg",               quality: "min",         answer: "A",    audio: "assets/audio/Strings 432/A min.mp3" },
+        { src: "assets/images/Strings 432/A sus.jpg",               quality: "sus",         answer: "A",    audio: "assets/audio/Strings 432/A sus.mp3" },
+        { src: "assets/images/Strings 432/A9.jpg",                  quality: "9",           answer: "A",    audio: "assets/audio/Strings 432/A9.mp3" },
+        { src: "assets/images/Strings 432/B7.jpg",                  quality: "7",           answer: "B",    audio: "assets/audio/Strings 432/B7.mp3" },
+        { src: "assets/images/Strings 432/Bb maj.jpg",              quality: "maj",         answer: "B♭",   audio: "assets/audio/Strings 432/Bb maj.mp3" },
+        { src: "assets/images/Strings 432/C maj.jpg",               quality: "maj",         answer: "C",    audio: "assets/audio/Strings 432/C maj.mp3" },
+        { src: "assets/images/Strings 432/C7.jpg",                  quality: "7",           answer: "C",    audio: "assets/audio/Strings 432/C7.mp3" },
+        { src: "assets/images/Strings 432/Cm.jpg",                  quality: "min",         answer: "C",    audio: "assets/audio/Strings 432/Cm.mp3" },
+        { src: "assets/images/Strings 432/D min.jpg",               quality: "min",         answer: "D",    audio: "assets/audio/Strings 432/D min.mp3" },
+        { src: "assets/images/Strings 432/Ds fully diminished.jpg", quality: "o7",          answer: "D#",   audio: "assets/audio/Strings 432/Ds Diminished 7.mp3" },
+        { src: "assets/images/Strings 432/D7.jpg",                  quality: "7",           answer: "D",    audio: "assets/audio/Strings 432/D7.mp3" },
+        { src: "assets/images/Strings 432/E7.jpg",                  quality: "7",           answer: "E",    audio: "assets/audio/Strings 432/E7.mp3" },
+        { src: "assets/images/Strings 432/Em7.jpg",                 quality: "m7",          answer: "E",    audio: "assets/audio/Strings 432/E m7.mp3" },
+        { src: "assets/images/Strings 432/Emaj.jpg",                quality: "maj",         answer: "E",    audio: "assets/audio/Strings 432/E maj.mp3" },
+        { src: "assets/images/Strings 432/Emin.jpg",                quality: "min",         answer: "E",    audio: "assets/audio/Strings 432/E min.mp3" },
+        { src: "assets/images/Strings 432/G maj.jpg",               quality: "maj",         answer: "G ",   audio: "assets/audio/Strings 432/G maj.mp3" },
+        { src: "assets/images/Strings 432/Gs fully diminished.jpg", quality: "o7",          answer: "G#",   audio: "assets/audio/Strings 432/Gs dim 7.mp3" },
+        { src: "assets/images/Strings 432/Ga.jpg",                  quality: "aug",         answer: "G",    audio: "assets/audio/Strings 432/Ga.mp3" },
+        { src: "assets/images/Strings 432/G7-1.jpg",                quality: "7",          answer: "G",    audio: "assets/audio/Strings 432/G7-1.mp3" },
+        { src: "assets/images/Strings 432/G7-2.jpg",                quality: "7",          answer: "G",    audio: "assets/audio/Strings 432/G7-2.mp3" },
+    ];  
+    let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
+    let buttonAccidentals = ["#", "♭"];
+    let buttonQualities = ["maj", "min", "dim", "aug"];
+    let buttonColorings = ["7", "m7", "o7", "9", "sus"]
+
+    let count = 0;
+    let incorrectCount = 0;
+    let correctCount = 0;
+    let questionCount = 0;
+    let score = 0;
+    let imageOrder = shuffleOrder();
+
+    
+    function shuffleOrder() {
+        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
+        for (let i = numbers.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+        }
+        return numbers;
+    }
+
+    function getButtonOptions(answer) {
+        let tempArray = [...buttonOptions];
+        shuffle(tempArray);
+        tempArray.pop();
+        tempArray.pop();
+        if (!tempArray.includes(answer)) {
+            tempArray.pop();
+            tempArray.push(answer);
+        }
+        shuffle(tempArray);
+        return tempArray;
+    }
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+    
+    function scoreHover(isHovered) {
+        if (isHovered) {
+            document.getElementById("scoreButton").textContent = `${score}%     `;
+        }
+        else {
+            document.getElementById("scoreButton").textContent = "View Score";
+        }
+    }
+
+    async function switchimages() {
+        let switchButton = document.getElementById("switchImageButton");
+        if (switchButton.textContent === "Fretboard") {
+            document.getElementById("quizImage").classList.add("fret");
+            document.getElementById("quizImage").src = images[imageOrder[count]].fretSrc;
+            switchButton.textContent = "Staff";
+        }
+        else {
+            document.getElementById("quizImage").classList.remove("fret");
+            document.getElementById("quizImage").src = images[imageOrder[count]].src;
+            switchButton.textContent = "Fretboard";
+        }
+    }
+    
+
+    function displayQuestion() {
+        if (count >= images.length) {
+            count = 0;
+            imageOrder = shuffleOrder();
+        }
+        
+        document.querySelector("#answer").textContent = " ";
+
+        let currentImage = images[imageOrder[count]];
+        //shuffleButtonOptions(buttonOptions);
+
+        document.getElementById("quizImage").classList.remove("fret");
+        document.getElementById("quizImage").src = currentImage.src;
+        // if (switchImageButton.textContent === "Fretboard") {
+        //     document.getElementById("quizImage").classList.remove("fret");
+        //     document.getElementById("quizImage").src = currentImage.src;
+        // }
+        // else {
+        //     document.getElementById("quizImage").classList.add("fret");
+        //     document.getElementById("quizImage").src = currentImage.fretSrc;
+        // }
+
+        let optionsContainer = document.getElementById("options");
+        optionsContainer.innerHTML = "";
+        optionsContainer.childNodes.forEach(child => child.remove());
+        let letterDirections = document.createElement("b");
+        letterDirections.textContent = "Chord Letter:";
+        letterDirections.classList.add("chord")
+        optionsContainer.appendChild(letterDirections);
+        buttonOptions.forEach(option => {
+            let button = document.createElement("button");
+            button.textContent = option;
+            button.onclick = () => checkAnswer(button, false, currentImage);
+            optionsContainer.appendChild(button);
+        
+        });
+        optionsContainer.appendChild(document.createElement("br"));
+        let accidentalDirections = document.createElement("b");
+        accidentalDirections.textContent = "Letter Accidental:";
+        accidentalDirections.classList.add("accidental")
+        optionsContainer.appendChild(accidentalDirections);
+        buttonAccidentals.forEach(option => {
+            let button = document.createElement("button");
+            button.textContent = option;
+            button.classList.add("accidental");
+            button.onclick = () => checkAnswerAccidental(button, currentImage);
+            optionsContainer.appendChild(button);
+        });
+        optionsContainer.appendChild(document.createElement("br"));
+        let qualityDirections = document.createElement("b");
+        qualityDirections.textContent = "Chord Quality:";
+        qualityDirections.classList.add("quality");
+        optionsContainer.appendChild(qualityDirections);
+        buttonQualities.forEach(option => {
+            let button = document.createElement("button");
+            button.textContent = option;
+            button.classList.add("quality");
+            button.onclick = () => checkAnswerQuality(button, currentImage);
+            optionsContainer.appendChild(button);
+        });
+        optionsContainer.appendChild(document.createElement("br"));
+        optionsContainer.append(document.createElement("h3", "Chord Quality:"));
+        buttonColorings.forEach(option => {
+            let button = document.createElement("button");
+            button.textContent = option;
+            button.classList.add("quality");
+            button.classList.add("coloring");
+            button.onclick = () => checkAnswerQuality(button, currentImage);
+            optionsContainer.appendChild(button);
+        });
+        
+        enableAccidentals(false);
+        enableQualities(false);
+        // enableColorings(false);
+    }
+
+    async function checkAnswer(button, isCorrect, currentImage) {
+        if (isCorrect) {
+            button.classList.add("correct");
+            let audio = new Audio(images[imageOrder[count]].audio);
+            audio.play();
+            count++;
+            correctCount++;
+            questionCount++;
+            document.querySelector("#answer").textContent = currentImage.answer + " " + currentImage.quality;
+            score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+            enableAccidentals(false);
+            enableQualities(false);
+            await new Promise(r => setTimeout(r, 1000));
+            displayQuestion();
+        }
+        else {
+            if (currentImage.quality.includes("sus")) {
+                // enableColorings(true);
+                enableQualities(true);
+            }
+            if (!currentImage.answer.includes ("#") && !currentImage.answer.includes("♭")) {
+                enableQualities(true);
+            }
+            if ((currentImage.answer.charAt(1).includes("#") || currentImage.answer.charAt(1).includes("♭")) && button.textContent.includes(currentImage.answer.charAt(0))){
+                button.classList.add("correct");
+                enableAccidentals(true);
+            }
+            else{    
+                if (button.textContent === currentImage.answer.charAt(0)) {
+                    button.classList.add("correct");
+                }
+                else {
+                    incorrectAnswer(button);
+                }
+            }
+        }
+    }
+    
+
+    async function checkAnswerAccidental(button, currentImage) {
+        if (button.textContent === currentImage.answer.charAt(1))  {
+            button.classList.add("correct");
+            button.disabled = true;
+            enableQualities(true);
+        }
+        else {
+            incorrectAnswer(button);
+        }
+    }
+
+    async function checkAnswerQuality(button, currentImage) {
+        if (button.textContent === currentImage.quality.substring(currentImage.quality.indexOf("-") + 1)) {
+            button.classList.add("correct");
+            checkAnswer(button, true, currentImage);
+        }
+        else {
+            incorrectAnswer(button);
+        }
+    }
+
+    async function checkAnswerColoring(button, currentImage) {
+        if (button.textContent === currentImage.quality.substring(currentImage.quality.indexOf("-") + 1)) {
+            button.classList.add("correct");
+            checkAnswer(button, true, currentImage);
+        }
+        else {
+            incorrectAnswer(button);
+        }
+    }
+
+    async function incorrectAnswer(button) {
+        incorrectCount++;
+        score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+        button.classList.add("incorrect");
+        button.disabled = true;
+    }
+
+    async function enableAccidentals(isEnabled) {
+        let buttons = document.querySelectorAll("#options button");
+        if (isEnabled) {
+            buttons.forEach(button => {
+                if (button.textContent === "#" || button.textContent === "♭") {
+                    button.disabled = false;
+                }
+            });
+        }
+        else {
+            buttons.forEach(button => {
+                if (button.textContent === "#" || button.textContent === "♭") {
+                    button.disabled = true;
+                }
+            });
+        }
+    }
+
+    async function enableQualities(isEnabled) {
+        let buttons = document.querySelectorAll("#options button");
+        if (isEnabled) {
+            buttons.forEach(button => {
+                if (button.classList.contains("quality")) {
+                    button.disabled = false;
+                }
+            });
+        }
+        else {
+            buttons.forEach(button => {
+                if (button.classList.contains("quality")) {
+                    button.disabled = true;
+                }
+            });
+        }
+    }
+
+    // async function enableColorings(isEnabled) {
+    //     let buttons = document.querySelectorAll("#options button");
+    //     if (isEnabled) {
+    //         buttons.forEach(button => {
+    //             if (button.classList.contains("coloring")) {
+    //                 button.disabled = false;
+    //             }
+    //         });
+    //     }
+    //     else {
+    //         buttons.forEach(button => {
+    //             if (button.classList.contains("coloring")) {
+    //                 button.disabled = true;
+    //             }
+    //         });
+    //     }
+    // }
+
+    async function showAnswer(isHovered) {
+        if (isHovered) {
+            document.getElementById("answerButton").textContent = images[imageOrder[count]].answer + " " + images[imageOrder[count]].quality;
+        }
+        else {
+            document.getElementById("answerButton").textContent = "Answer";
+        }
+    }
+
+    function skipQuestion() {
+        count++;
+        questionCount++;
+        incorrectCount++;
+        displayQuestion();
+    }
+
+    displayQuestion();
+</script>
+</body>
+</html>
