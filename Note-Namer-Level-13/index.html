@@ -346,6 +346,8 @@
             questionCount++;
             document.querySelector("#answer").textContent = currentImage.answer + " " + currentImage.quality;
             score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+            enableAccidentals(false);
+            enableQualities(false);
             await new Promise(r => setTimeout(r, 1000));
             displayQuestion();
         }
