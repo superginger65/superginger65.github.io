@@ -235,7 +235,7 @@
         }
         else {
             if ((currentImage.answer.charAt(voicing+1).includes("#") || currentImage.answer.charAt(voicing+1).includes("♭")) && button.textContent.includes(currentImage.answer.charAt(voicing)) ||
-                (currentImage.answer2.charAt(voicing+1).includes("#") || currentImage.answer2.charAt(voicing+1).includes("♭")) && button.textContent.includes(currentImage.answer2.charAt(voicing))){
+                (document.getElementById("quizImage").textContent === "Fretboard" && (currentImage.answer2.charAt(voicing+1).includes("#") || currentImage.answer2.charAt(voicing+1).includes("♭")) && button.textContent.includes(currentImage.answer2.charAt(voicing)))){
                 button.classList.add("correct");
                 enableAccidentals(true);
             }
@@ -258,7 +258,7 @@
     
 
     async function checkAnswerAccidental(button, currentImage) {
-        if (button.textContent === currentImage.answer.charAt(voicing+1) || button.textContent === currentImage.answer2.charAt(voicing+1))  {
+        if (button.textContent === currentImage.answer.charAt(voicing+1) || (document.getElementById("quizImage").textContent === "Fretboard" && (button.textContent === currentImage.answer2.charAt(voicing+1))))  {
             voicing += 3;
             button.classList.add("correct");
             button.disabled = true;
