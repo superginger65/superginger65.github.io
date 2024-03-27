@@ -197,6 +197,7 @@
 
         const optionsContainer = document.getElementById("options");
         optionsContainer.innerHTML = "";
+        optionsContainer.childNodes.forEach(child => child.remove());
         buttonOptions.forEach(option => {
             if (option === "|") {
                 optionsContainer.appendChild(document.createElement("br"));
