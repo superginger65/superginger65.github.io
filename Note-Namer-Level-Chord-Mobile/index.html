@@ -288,10 +288,6 @@
         let optionsContainer = document.getElementById("options");
         optionsContainer.innerHTML = "";
         optionsContainer.childNodes.forEach(child => child.remove());
-        let letterDirections = document.createElement("b");
-        letterDirections.textContent = "Chord Letter:";
-        letterDirections.classList.add("chord")
-        optionsContainer.appendChild(letterDirections);
         buttonOptions.forEach(option => {
             let button = document.createElement("button");
             button.textContent = option;
@@ -300,10 +296,6 @@
         
         });
         optionsContainer.appendChild(document.createElement("br"));
-        let accidentalDirections = document.createElement("b");
-        accidentalDirections.textContent = "Letter Accidental:";
-        accidentalDirections.classList.add("accidental")
-        optionsContainer.appendChild(accidentalDirections);
         buttonAccidentals.forEach(option => {
             let button = document.createElement("button");
             button.textContent = option;
@@ -312,10 +304,6 @@
             optionsContainer.appendChild(button);
         });
         optionsContainer.appendChild(document.createElement("br"));
-        let qualityDirections = document.createElement("b");
-        qualityDirections.textContent = "Chord Quality:";
-        qualityDirections.classList.add("quality");
-        optionsContainer.appendChild(qualityDirections);
         buttonQualities.forEach(option => {
             let button = document.createElement("button");
             button.textContent = option;
