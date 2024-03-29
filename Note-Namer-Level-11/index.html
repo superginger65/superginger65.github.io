@@ -90,9 +90,13 @@
         { src: "assets/images/A.jpg", fretSrc: "assets/images/fretA.jpg", answer: "A", audio: "assets/audio/Note Name Audio Low A.mp3" },
         { src: "assets/images/B.jpg", fretSrc: "assets/images/fretB.jpg", answer: "B", audio: "assets/audio/Note Name Audio Low B.mp3" },
         { src: "assets/images/Bb.jpg", fretSrc: "assets/images/fretBb.jpg", answer: "B♭", audio: "assets/audio/Note Name Audio Low Bb.wav" },
-        { src: "assets/images/C1.jpg", fretSrc: "assets/images/fretC1.jpg", answer: "C", audio: "assets/audio/Note Name Audio Low C.mp3" },
+        { src: "assets/images/C.jpg", fretSrc: "assets/images/fretC.jpg", answer: "C", audio: "assets/audio/Note Name Audio Low C.mp3" },
+        { src: "assets/images/D1.jpg", fretSrc: "assets/images/fretD1.jpg", answer: "D", audio: "assets/audio/Note Name Audio D1.wav" },
         { src: "assets/images/E.jpg", fretSrc: "assets/images/fretE.jpg", answer: "E", audio: "assets/audio/Note Name Audio Low E.mp3" },
+        { src: "assets/images/E1.jpg", fretSrc: "assets/images/fretE1.jpg", answer: "E", audio: "assets/audio/Note Name Audio E1.wav" },
         { src: "assets/images/F.jpg", fretSrc: "assets/images/fretF.jpg", answer: "F", audio: "assets/audio/Note Name Audio Low F.mp3" },
+        { src: "assets/images/F1.jpg", fretSrc: "assets/images/fretF1.jpg", answer: "F", audio: "assets/audio/Note Name Audio F1.wav" },
+        { src: "assets/images/Fs1.jpg", fretSrc: "assets/images/fretFs1.jpg", answer: "F#", audio: "assets/audio/Fs1.mp3" },
         { src: "assets/images/Fs.jpg", fretSrc: "assets/images/FretLowFs.jpg", answer: "F#", audio: "assets/audio/Note Name Audio Low Fs.wav" },
         { src: "assets/images/G.jpg", fretSrc: "assets/images/fretG.jpg", answer: "G", audio: "assets/audio/Note Name Audio Low G.mp3" },
     ];
@@ -111,7 +115,7 @@
 
     
     function shuffleOrder() {
-        const numbers = [0, 1, 2, 3, 4, 5, 6, 7];
+        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
         for (let i = numbers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
@@ -217,6 +221,7 @@
             button.onclick = () => checkAnswerAccidental(button, currentImage);
             optionsContainer.appendChild(button);
         });
+        enableAccidentals(false);
     }
 
     async function checkAnswer(button, isCorrect, currentImage) {
