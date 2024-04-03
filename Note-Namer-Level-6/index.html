@@ -87,13 +87,27 @@
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
+        { src: "Assets/Images/staffA-B.jpg", fretSrc: "Assets/Images/fretboardA-B.jpg", answer: "A-B", audio: "Assets/Audio/Pitch recognition audio-A-B.mp3" },
+        { src: "Assets/Images/staffA-C.jpg", fretSrc: "Assets/Images/fretboardA-C.jpg", answer: "A-C", audio: "Assets/Audio/Pitch recognition audio-A-C.mp3" },
+        { src: "Assets/Images/staffA-D.jpg", fretSrc: "Assets/Images/fretboardA-D.jpg", answer: "A-D", audio: "Assets/Audio/Pitch recognition audio-A-D.mp3" },
+        { src: "Assets/Images/staffG-B.jpg", fretSrc: "Assets/Images/fretboardG-B.jpg", answer: "G-B", audio: "Assets/Audio/Pitch recognition audio-G-B.mp3" },
+        { src: "Assets/Images/staffG-C.jpg", fretSrc: "Assets/Images/fretboardG-C.jpg", answer: "G-C", audio: "Assets/Audio/Pitch recognition audio-G-C.mp3" },
+        { src: "Assets/Images/staffG-D.jpg", fretSrc: "Assets/Images/fretboardG-D.jpg", answer: "G-D", audio: "Assets/Audio/Pitch recognition audio-G-D.mp3" },
         { src: "assets/images/B-Fs.jpg", fretSrc: "assets/images/Dyad B-Fs.jpg", answer:  "B-F#", audio: "assets/audio/B-Fs.mp3" },
         { src: "assets/images/C-Fs.jpg", fretSrc: "assets/images/Dyad C-Fs.jpg", answer:  "C-F#", audio: "assets/audio/C-Fs.mp3" },
         { src: "assets/images/Cs-E.jpg", fretSrc: "assets/images/Dyad Cs-E.jpg", answer:  "C#-E", audio: "assets/audio/Cs-E.mp3" },
         { src: "assets/images/Cs-F.jpg", fretSrc: "assets/images/Dyad Cs-F.jpg", answer:  "C#-F", audio: "assets/audio/Cs-F.mp3" },
         { src: "assets/images/Cs-Fs.jpg", fretSrc: "assets/images/Dyad Cs-Fs.jpg", answer: "C#-F#", audio: "assets/audio/Cs-Fs.mp3" },
-        { src: "assets/images/Cs-G.jpg", fretSrc: "assets/images/Dyad Cs-G.jpg", answer:  "C#-G", audio: "assets/audio/Cs-G.mp3" },
         { src: "assets/images/D-Fs.jpg", fretSrc: "assets/images/Dyad D-Fs.jpg", answer:  "D-F#", audio: "assets/audio/D-Fs.mp3" },
+        { src: "assets/images/staffB-E.jpg", fretSrc: "assets/images/fretboardB-E.jpg", answer: "B-E", audio: "assets/audio/Pitch recognition audio-B-E.mp3" },
+        { src: "assets/images/staffB-F.jpg", fretSrc: "assets/images/fretboardB-F.jpg", answer: "B-F", audio: "assets/audio/Pitch recognition audio-B-F.mp3" },
+        { src: "assets/images/staffB-G.jpg", fretSrc: "assets/images/fretboardB-G.jpg", answer: "B-G", audio: "assets/audio/Pitch recognition audio-B-G.mp3" },
+        { src: "assets/images/staffC-E.jpg", fretSrc: "assets/images/fretboardC-E.jpg", answer: "C-E", audio: "assets/audio/Pitch recognition audio-C-E.mp3" },
+        { src: "assets/images/staffC-F.jpg", fretSrc: "assets/images/fretboardC-F.jpg", answer: "C-F", audio: "assets/audio/Pitch recognition audio-C-F.mp3" },
+        { src: "assets/images/staffC-G.jpg", fretSrc: "assets/images/fretboardC-G.jpg", answer: "C-G", audio: "assets/audio/Pitch recognition audio-C-G.mp3" },
+        { src: "assets/images/staffD-E.jpg", fretSrc: "assets/images/fretboardD-E.jpg", answer: "D-E", audio: "assets/audio/Pitch recognition audio-D-E.mp3" },
+        { src: "assets/images/staffD-F.jpg", fretSrc: "assets/images/fretboardD-F.jpg", answer: "D-F", audio: "assets/audio/Pitch recognition audio-D-F.mp3" },
+        { src: "assets/images/staffD-G.jpg", fretSrc: "assets/images/fretboardD-G.jpg", answer: "D-G", audio: "assets/audio/Pitch recognition audio-D-G.mp3" },
     ];
 
     let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
@@ -109,7 +123,7 @@
 
     
     function shuffleOrder() {
-    const numbers = [0, 1, 2, 3, 4, 5, 6];
+    const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
         for (let i = numbers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
