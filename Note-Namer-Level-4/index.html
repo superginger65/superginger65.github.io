@@ -107,6 +107,7 @@
     let questionCount = 0;
     let voicing = 0;
     let score = 0;
+    let correctButtons = [];
     let imageOrder = shuffleOrder();
 
     
@@ -214,26 +215,33 @@
     async function checkAnswer(button, isCorrect, currentImage) {
         //const buttons = document.querySelectorAll("#options button");
         if (isCorrect) {
-            button.classList.add("correct");
+            const buttons = document.querySelectorAll("#options button");
             voicing = 0;
             const audio = new Audio(images[imageOrder[count]].audio);
-            audio.play();
             count++;
             correctCount++;
             questionCount++;
             score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
-            await new Promise(r => setTimeout(r, 1000));
+            while (correctButtons.length > 0) {
+                correctButtons.pop().classList.add("correct");
+            }
+            await new Promise(resolve => {
+                audio.addEventListener('ended', resolve);
+                audio.play();
+            });
             displayQuestion();
         }
         else {
             if ((currentImage.answer.charAt(voicing+1).includes("#") || currentImage.answer.charAt(voicing+1).includes("♭")) && button.textContent.includes(currentImage.answer.charAt(voicing))){
                 button.classList.add("correct");
+                correctButtons.push(button);
                 enableAccidentals(true);
             }
-            else {
+            else {    
                 if (button.textContent === currentImage.answer.charAt(voicing)) {
-                    button.classList.add("correct"); 
                     voicing += 2;
+                    button.classList.add("correct");
+                    correctButtons.push(button);
                     await new Promise(r => setTimeout(r, 370));
                     button.classList.remove("correct");
                     if (voicing > currentImage.answer.length - 1) {

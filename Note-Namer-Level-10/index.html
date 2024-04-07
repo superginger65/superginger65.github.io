@@ -243,7 +243,7 @@
             correctCount++;
             questionCount++;
             score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
-            await new Promise(r => setTimeout(r, 1000));
+            await new Promise(r => setTimeout(r, 2700));
             displayQuestion();
         }
         else {
@@ -255,7 +255,7 @@
                 if (button.textContent === currentImage.answer.charAt(voicing)) {
                     voicing += 2;
                     button.classList.add("correct");
-                    await new Promise(r => setTimeout(r, 450));
+                    await new Promise(r => setTimeout(r, 370));
                     button.classList.remove("correct");
                     if (voicing > currentImage.answer.length - 1) {
                         checkAnswer(button, true, currentImage);
@@ -274,7 +274,7 @@
             voicing += 3;
             button.classList.add("correct");
             button.disabled = true;
-            await new Promise(r => setTimeout(r, 450));
+            await new Promise(r => setTimeout(r, 370));
             button.classList.remove("correct");
             button.disabled = false;
             if (voicing > currentImage.answer.length - 1) {
@@ -299,7 +299,7 @@
         score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
         button.classList.add("incorrect");
         button.disabled = true;
-        await new Promise(r => setTimeout(r, 450));
+        await new Promise(r => setTimeout(r, 370));
         button.classList.remove("incorrect");
         button.disabled = false;
     }

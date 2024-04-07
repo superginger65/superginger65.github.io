@@ -235,7 +235,7 @@
             correctCount++;
             questionCount++;
             score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
-            await new Promise(r => setTimeout(r, 1000));
+            await new Promise(r => setTimeout(r, 2750));
             displayQuestion();
         }
         else {
@@ -268,7 +268,6 @@
             button.classList.add("correct");
             button.disabled = true;
             await new Promise(r => setTimeout(r, 370));
-            button.classList.remove("correct");
             button.disabled = false;
             voicing += voicing + 3;
             if (voicing > currentImage.answer.length - 1) {
