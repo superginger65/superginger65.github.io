@@ -55,6 +55,15 @@
         min-height: 2.5rem;
         min-width: 2.5rem;
     }
+    button.product {
+        background-color: rgb(0, 92, 230); 
+        position: absolute;
+        top: 22vh;
+        font-size: 120%;
+    }
+    button.product:hover {
+        background-color: rgb(24, 116, 255);
+    }
     @keyframes shake {
         0% {
             margin-right: 0%;
@@ -81,13 +90,11 @@
     <button id="switchImageButton", title="Fretboard", onclick="switchImages()">Fretboard</button>
 </div>
 <img id="quizImage" src="" alt="Quiz Image">
+<button class ="product" id="productButton" onclick="window.open('https://www.aaronshearerfoundation.org/asf-bookstore2/best-classical-guitar-method/', '_blank').focus();">Learn More</button>
 <div id="options">
     <!-- Buttons will be generated dynamically -->
 </div>
-<div>
     <button id="scoreButton", title="Score", onmouseenter="scoreHover(true)", onmouseleave="scoreHover(false)">View Score</button>
-</div>
-<button id="productButton" onclick="window.open('https://www.aaronshearerfoundation.org/asf-bookstore2/best-classical-guitar-method/', '_blank').focus();">Learn More</button>
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
