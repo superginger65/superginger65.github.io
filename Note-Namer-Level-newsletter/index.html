@@ -84,8 +84,10 @@
 <div id="options">
     <!-- Buttons will be generated dynamically -->
 </div>
-<button id="scoreButton", title="Score", onmouseenter="scoreHover(true)", onmouseleave="scoreHover(false)">View Score</button>
-<button id="productButton" onclick="window.location.href = 'https://www.aaronshearerfoundation.org/asf-bookstore2/best-classical-guitar-method/'">Product Page</button>
+<div>
+    <button id="scoreButton", title="Score", onmouseenter="scoreHover(true)", onmouseleave="scoreHover(false)">View Score</button>
+</div>
+<button id="productButton" onclick="window.open('https://www.aaronshearerfoundation.org/asf-bookstore2/best-classical-guitar-method/', '_blank').focus();">Product Page</button>
 <audio id="audio" controls style="display: none;"></audio>
 <script>
     const images = [
