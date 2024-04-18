@@ -95,7 +95,6 @@
         { src: "assets/images/Staff/B1.jpg",  fretSrc: "assets/images/Fingerboard/B1 on (3).jpg",   answer: "B",    audio: "assets/audio/Note Name Audio B1.mp3" },
         { src: "assets/images/Staff/B1.jpg",  fretSrc: "assets/images/Fingerboard/B1.tif",          answer: "B",    audio: "assets/audio/Note Name Audio B1.mp3" },
         { src: "assets/images/Staff/Bb1.jpg", fretSrc: "assets/images/Fingerboard/Bb1 or As1.jpg",  answer: "B♭",   audio: "assets/audio/Note Name Audio As-Bb1.wav" },
-        { src: "assets/images/Staff/C.jpg",   fretSrc: "assets/images/Fingerboard/C.jpg",            answer: "C",    audio: "assets/audio/Note Name Audio Low C.mp3" },
         { src: "assets/images/Staff/C1.jpg",  fretSrc: "assets/images/Fingerboard/C1.jpg",          answer: "C",    audio: "assets/audio/Note Name Audio C1.wav" },
         { src: "assets/images/Staff/C2.jpg",  fretSrc: "assets/images/Fingerboard/C2.tif",          answer: "C",    audio: "assets/audio/Note Name Audio C2.wav" },
         { src: "assets/images/Staff/Cs1.jpg", fretSrc: "assets/images/Fingerboard/Cs1.jpg",         answer: "C#",   audio: "assets/audio/Note Name Audio Cs1.mp3" },
@@ -120,7 +119,7 @@
         { src: "assets/images/Staff/Gs.jpg",  fretSrc: "assets/images/Fingerboard/Gs.jpg",          answer: "G#",   audio: "assets/audio/Note Name Audio Low Gs.wav" },
         { src: "assets/images/Staff/Gs1.jpg", fretSrc: "assets/images/Fingerboard/Gs1.jpg",         answer: "G#",   audio: "assets/audio/Note Name Audio Gs1.mp3" },
         { src: "assets/images/Staff/Gs2.jpg", fretSrc: "assets/images/Fingerboard/Gs2.jpg",         answer: "G#",   audio: "assets/audio/Note Name Audio Gs2.mp3" },
-    ];
+     ];
     
 
     let buttonOptions = ["A", "B", "C", "D", "E", "F", "G"];
@@ -136,7 +135,7 @@
 
     
     function shuffleOrder() {
-        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32];
+        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
         for (let i = numbers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
@@ -248,6 +247,7 @@
     async function checkAnswer(button, isCorrect, currentImage) {
         //const buttons = document.querySelectorAll("#options button");
         if (isCorrect) {
+            button.disabled = true;
             button.classList.add("correct");
             voicing = 0;
             const audio = new Audio(images[imageOrder[count]].audio);
