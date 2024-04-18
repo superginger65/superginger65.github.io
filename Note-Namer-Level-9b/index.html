@@ -235,6 +235,7 @@
     async function checkAnswer(button, isCorrect, currentImage) {
         //const buttons = document.querySelectorAll("#options button");
         if (isCorrect) {
+            button.disabled = true;
             const buttons = document.querySelectorAll("#options button");
             voicing = 0;
             const audio = new Audio(images[imageOrder[count]].audio);

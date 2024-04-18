@@ -329,6 +329,7 @@
 
     async function checkAnswer(button, isCorrect, currentImage) {
         if (isCorrect) {
+            button.disabled = true;
             button.classList.add("correct");
             let audio = new Audio(images[imageOrder[count]].audio);
             audio.play();

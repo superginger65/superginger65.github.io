@@ -213,22 +213,22 @@
     async function checkAnswer(button, isCorrect) {
         //const buttons = document.querySelectorAll("#options button");
         if (isCorrect) {
-                button.classList.add("correct");
-                const audio = new Audio(images[imageOrder[count]].audio);
-                audio.play();
-                count++;
-                correctCount++;
-                questionCount++;
-                score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
-                await new Promise(r => setTimeout(r, 2750));
-                displayQuestion();
-            }
-            else {
-                incorrectCount++;
-                button.classList.add("incorrect");
-                score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
-            }
             button.disabled = true;
+            button.classList.add("correct");
+            const audio = new Audio(images[imageOrder[count]].audio);
+            audio.play();
+            count++;
+            correctCount++;
+            questionCount++;
+            score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+            await new Promise(r => setTimeout(r, 2750));
+            displayQuestion();
+        }
+        else {
+            incorrectCount++;
+            button.classList.add("incorrect");
+            score = Math.floor(correctCount / (questionCount + incorrectCount) * 100);
+        }
     }
 
     displayQuestion();
