@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Track Player</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Multi-Track Audio Player</h1>
+
+  <!-- Master Play/Pause Button -->
+  <button id="master-play-pause" onclick="toggleMasterPlayPause()">⏵︎</button>
+
+  <div id="Tracks">
+    <!-- Tracks will be generated -->
+  </div>
+
+  <div id="track-container">
+    <div class="upload">
+      <label for="file-upload">Upload Tracks:</label>
+      <input type="file" id="file-upload" accept="audio/*" multiple onchange="generateTracks(event.target.files)" />
+    </div>
+
+
+    <label for="speed">Speed (BPM):</label>
+    <input type="number" id="speed2" value="100" onchange="changeSpeed(this.value)">
+
+    <!-- More tracks can be added here in similar fashion -->
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
