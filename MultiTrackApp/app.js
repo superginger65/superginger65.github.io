@@ -28,6 +28,7 @@ function toggleMute(trackId) {
       audio.id = trackId;
       audio.controls = false;
       audio.src = URL.createObjectURL(file);
+      audio.addEventListener('ended', endTracks);
       tracksDiv.appendChild(audio);
       tracksDiv.appendChild(document.createElement('br'));
     });
@@ -59,14 +60,44 @@ function toggleMute(trackId) {
     // Check if any track is playing
     const isAnyTrackPlaying = Array.from(allTracks).some(track => !track.paused);
   
-    if (isAnyTrackPlaying) {
-      // Pause all tracks
-      allTracks.forEach(track => track.pause());
-      masterButton.textContent = '⏵︎';
-    } else {
-      // Play all tracks
-      allTracks.forEach(track => track.play());
-      masterButton.textContent = '⏸︎';
+    if (allTracks.length > 0) {
+      if (isAnyTrackPlaying) {
+        // Pause all tracks
+        allTracks.forEach(track => track.pause());
+        masterButton.textContent = '⏵︎';
+      } else {
+        // Play all tracks
+        allTracks.forEach(track => track.play());
+        masterButton.textContent = '⏸︎';
+      }
     }
   }
-  
+
+
+  function endTracks() {
+    const allTracks = document.querySelectorAll('audio');
+    const masterButton = document.getElementById('master-play-pause');
+    allTracks.forEach(track => {
+      track.pause();
+      track.currentTime = 0;
+      masterButton.textContent = '⏵︎';
+    });
+  }
+
+
+  //Function to handle Restarting Tracks
+  function restartTracks() {
+    const allTracks = document.querySelectorAll('audio');
+    allTracks.forEach(track => {
+      track.currentTime = 0;
+    });
+  }
+
+
+  //Function to handle moving the Time of the Tracks
+  function moveTracks(timeInSeconds) {
+    const allTracks = document.querySelectorAll('audio');
+    allTracks.forEach(track => {
+      track.currentTime = track.currentTime + timeInSeconds;
+    });
+  }

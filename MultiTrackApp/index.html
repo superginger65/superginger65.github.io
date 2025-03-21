@@ -9,24 +9,36 @@
 <body>
   <h1>Multi-Track Audio Player</h1>
 
+  <!-- Restart All Tracks Button -->
+  <button id="restart" onclick="restartTracks()">⏮︎</button>
+
+  <!-- Rewind 30 Seconds Button -->
+  <button id="rewind-30" onclick="moveTracks(-30)">⏪30s</button>
+
+  <!-- Rewind 10 Seconds Button -->
+  <button id="rewind-10" onclick="moveTracks(-10)">⏪10s</button>
+
   <!-- Master Play/Pause Button -->
   <button id="master-play-pause" onclick="toggleMasterPlayPause()">⏵︎</button>
+
+  <!-- Fast Forward 10 Seconds Button -->
+  <button id="fast-forward-10" onclick="moveTracks(10)">⏩10s</button>
+
+  <!-- Fast Forward 30 Seconds Button -->
+  <button id="fast-forward-30" onclick="moveTracks(30)">⏩30s</button>
 
   <div id="Tracks">
     <!-- Tracks will be generated -->
   </div>
 
   <div id="track-container">
-    <div class="upload">
+    <div class="track">
       <label for="file-upload">Upload Tracks:</label>
       <input type="file" id="file-upload" accept="audio/*" multiple onchange="generateTracks(event.target.files)" />
     </div>
 
-
     <label for="speed">Speed (BPM):</label>
     <input type="number" id="speed2" value="100" onchange="changeSpeed(this.value)">
-
-    <!-- More tracks can be added here in similar fashion -->
   </div>
 
   <script src="app.js"></script>
