@@ -2,18 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sightreading Practice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sight Reading Generator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Sightreading Practice</h1>
-    <button onclick="displayRandomMeasures()">New Set</button>
-    <!-- <img src="images/Background.png" alt="Background" class="image-background" /> -->
-    <div id="imageContainer" class="image-grid"></div>
+    <h1>Sight Reading Generator</h1>
+    <div class="buttons">
+      <button onclick="generateActivity('3-4')">3/4 Meter</button>
+      <button onclick="generateActivity('4-4')">4/4 Meter</button>
+    </div>
+    <div class="staff">
+      <div id="row1" class="row"></div>
+      <div id="row2" class="row"></div>
+    </div>
   </div>
-
   <script src="app.js"></script>
 </body>
 </html>
