@@ -32,27 +32,30 @@ const timeline = document.getElementById('timeline');
   }
   
 
-  // Function to play or pause all tracks
+  // Function to play or pause all tracks in sync
   function toggleMasterPlayPause() {
-    // Get all audio elements
     const allTracks = document.querySelectorAll('audio');
     const masterButton = document.getElementById('master-play-pause');
-    
-    // Check if any track is playing
     const isAnyTrackPlaying = Array.from(allTracks).some(track => !track.paused);
-  
+
     if (allTracks.length > 0) {
       if (isAnyTrackPlaying) {
         // Pause all tracks
         allTracks.forEach(track => track.pause());
         masterButton.textContent = '⏵︎';
       } else {
-        // Play all tracks
+        // Sync all tracks to the same time
+        const syncTime = allTracks[0].currentTime;
         allTracks.forEach(track => {
-          track.play();
-          // track.currentTime = allTracks[0].currentTime;
+          track.currentTime = syncTime;
         });
-        masterButton.textContent = '⏸︎';
+
+        // Play all tracks as close together as possible
+        // Use Promise to ensure play() is called after currentTime is set
+        Promise.all(Array.from(allTracks, track => track.play().catch(() => {})))
+          .then(() => {
+            masterButton.textContent = '⏸︎';
+          });
       }
     }
   }
