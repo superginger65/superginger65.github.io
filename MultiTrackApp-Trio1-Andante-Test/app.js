@@ -60,6 +60,11 @@ const timeline = document.getElementById('timeline');
     }
   }
 
+  function setTrackVolume(trackId, volume) {
+    const track = document.getElementById(trackId);
+    track.volume = volume;
+  }
+
 
   function endTracks() {
     const allTracks = document.querySelectorAll('audio');
