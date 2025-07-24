@@ -1,5 +1,5 @@
-const NOTES = ['A', 'B', 'D', 'G'];
-const NOTEINTERVALS = [2, 4, -5, 0];
+const NOTES = ['A1', 'B1', 'C1', 'D', 'D1', 'G1'];
+const NOTEINTERVALS = [2, 4, 5, -5, 7, 0];
 let previousNote = null;
 
 function getRandom(arr) {
@@ -21,6 +21,9 @@ function getRandomNote(notes, intervals, previousNote) {
 function generateMeasureImages(isFirst, isLast, isBreak, beats, meter) {
   const measure = [];
   let remaining = beats;
+  if (isLast) {
+    remaining = Math.floor(beats / 2);
+  }
 
   while (remaining > 0) {
     let noteMax = Math.min(remaining, beats); 

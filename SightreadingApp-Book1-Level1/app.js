@@ -23,8 +23,12 @@ function generateMeasureImages(isFirst, isLast, isBreak, beats, meter) {
   let remaining = beats;
 
   while (remaining > 0) {
-    let noteMax = Math.min(remaining, beats); 
-    let duration = getRandom([...Array(noteMax).keys()].map(i => i + 1));
+    let noteMax = Math.min(remaining, beats);
+    let duration;
+    do {
+      duration = getRandom([...Array(noteMax).keys()].map(i => i + 1));
+    } while (duration === 3);
+
     let note = getRandomNote(NOTES, NOTEINTERVALS, previousNote);
     let folder = ``;
     if (duration === beats) {
@@ -58,8 +62,9 @@ function generateMeasureImages(isFirst, isLast, isBreak, beats, meter) {
   return measure;
 }
 
-function generateActivity(meter) {
-  const beats = meter === '3-4' ? 3 : 4;
+function generateActivity() {
+  const meter = '4-4'; // Default meter, can be changed as needed
+  const beats = 4;
   const row1 = document.getElementById('row1');
   const row2 = document.getElementById('row2');
   row1.innerHTML = '';
