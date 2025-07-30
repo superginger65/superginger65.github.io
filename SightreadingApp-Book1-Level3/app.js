@@ -1,7 +1,7 @@
-const NOTES = ['A1', 'B1', 'C1', 'D', 'D1', 'G1'];
-const NOTEINTERVALS = [2, 4, 5, -5, 7, 0];
-const CADENCENOTES = ['A1', 'D'];
-const CADENCEINTERVALS = [2, -5];
+const NOTES = ['G1', 'A1', 'B1', 'C1', 'D1', 'E2', 'F2', 'G2'];
+const NOTEINTERVALS = [-5, -3, -1, 0, 2, 4, 5, 7];
+const CADENCENOTES = ['G1', 'B1', 'D1'];
+const CADENCEINTERVALS = [-5, -1, 2];
 let previousNote = null;
 
 function getRandom(arr) {
@@ -10,12 +10,19 @@ function getRandom(arr) {
 
 function getRandomNote(notes, intervals, previousNote) {
   let note, interval;
+  let attempts = 0;
+  const maxAttempts = 10;
   do {
     const index = Math.round(Math.random() * (notes.length - 1));
     note = notes[index];
     interval = intervals[index];
-  } while (previousNote !== null &&
-           Math.abs(interval - NOTEINTERVALS[NOTES.indexOf(previousNote)]) > 5
+    attempts++;
+    if (attempts >= maxAttempts) {
+      break;
+    }
+  } while (
+    previousNote !== null &&
+    Math.abs(interval - NOTEINTERVALS[NOTES.indexOf(previousNote)]) > 5
   );
   return note;
 }
@@ -23,6 +30,14 @@ function getRandomNote(notes, intervals, previousNote) {
 function generateMeasureImages(isFirst, isBreak, beats, meter) {
   const measure = [];
   let remaining = beats;
+
+  if (isBreak) {
+    beats--; // Adjust to be one less for break measures
+  }
+
+  if (isFirst && beats === 4) {
+    beats--; // Adjust to be one less for the first measure in 4-4 
+  }
 
   while (remaining > 0) {
     let noteMax = Math.min(remaining, beats); 
