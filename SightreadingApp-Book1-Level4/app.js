@@ -22,7 +22,7 @@ function getRandom(arr) {
 function getRandomNote(notes, intervals, previousNote) {
   let note, interval;
   let attempts = 0;
-  const maxAttempts = 10;
+  const maxAttempts = 20;
   do {
     const index = Math.round(Math.random() * (notes.length - 1));
     note = notes[index];
