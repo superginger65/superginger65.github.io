@@ -87,7 +87,6 @@ let track4Mute = false;
     track.load();
     track.currentTime = currentTime;
     if (wasPlaying) track.play();
-    console.log('trackToPlay:', trackToPlay);
   }
 
   // Function to change the playback speed based on the input BPM
