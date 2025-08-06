@@ -22,7 +22,8 @@ let track4Mute = false;
     muteButton.textContent = track.muted ? '🔇' : '🔊';
   }
 
-  function toggleTrack(trackId) {
+  function toggleTrack(trackId, shouldPlay) {
+
     switch (trackId) {
       case 1:
         track1Mute = !track1Mute;
@@ -76,17 +77,20 @@ let track4Mute = false;
     } else if (!track1Mute && track2Mute && track3Mute && track4Mute) {
       trackToPlay = `Tracks/No Metronome/Singles/Play 1 Student Single.mp3`;
     } else if (track1Mute && track2Mute && track3Mute && track4Mute) {
-      trackToPlay = `Tracks/Nothing`;
+      toggleTrack(trackId, false);
+      return;
     }
-    let track = document.getElementById(`master-audio`);
-    let source = document.getElementById(`master-source`);
-    let wasPlaying = !track.paused;
-    track.pause();
-    let currentTime = track.currentTime;
-    source.src = trackToPlay;
-    track.load();
-    track.currentTime = currentTime;
-    if (wasPlaying) track.play();
+    if (shouldPlay) {
+      let track = document.getElementById(`master-audio`);
+      let source = document.getElementById(`master-source`);
+      let wasPlaying = !track.paused;
+      track.pause();
+      let currentTime = track.currentTime;
+      source.src = trackToPlay;
+      track.load();
+      track.currentTime = currentTime;
+      if (wasPlaying) track.play();
+    }
   }
 
   // Function to change the playback speed based on the input BPM
