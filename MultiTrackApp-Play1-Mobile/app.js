@@ -46,7 +46,7 @@ let track4Mute = false;
         break;
     }
     if (!track1Mute && !track2Mute && !track3Mute && !track4Mute) {
-      trackToPlay = `Tracks/With Metronome/Combinations/Play 1 Stud Teach Strum with Met.mp3`;
+      trackToPlay = `Tracks/With Metronome/Combinations/Play 1 Stud Teach Strum with met.mp3`;
     } else if (track1Mute && !track2Mute && !track3Mute && !track4Mute) {
       trackToPlay = `Tracks/With Metronome/Combinations/Play 1 Teach Strum with Met.mp3`;
     } else if (!track1Mute && track2Mute && !track3Mute && !track4Mute) {
